@@ -1,0 +1,369 @@
+{% extends 'web/partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+   <!-- Add your site or application content here -->
+   <main>
+
+
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+           <div class="side-info-content">
+             <div class="offset-widget offset-logo mb-40">
+               <div class="row align-items-center">
+                 <div class="col-9">
+                   <a href="{% url 'index' %}">
+                     <img
+                       src="{% static 'assets/img/logo/logo-bl.png' %}"
+                       alt="Logo"
+                     />
+                   </a>
+                 </div>
+                 <div class="col-3 text-end">
+                   <button class="side-info-close">
+                     <i class="fal fa-times"></i>
+                   </button>
+                 </div>
+               </div>
+             </div>
+             <div class="mobile-menu d-lg-none fix"></div>
+             <div class="offset-profile-action d-md-none">
+               <div class="offset-widget mb-40">
+                 <div class="action-list action-list-header1">
+                   <div class="action-item action-item-cart">
+                     <a href="{% url 'cart' %}" class="view-cart-button">
+                       <i class="fal fa-shopping-bag"></i>
+                       <span class="action-item-number">{{ request.session.cart_data_obj|length }}</span></a
+                     >
+                   </div>
+                   <div class="action-item action-item-wishlist">
+                     <a href="{% url 'wishlist' %}" class="view-wishlist-button">
+                       <i class="fal fa-heart"></i>
+                       <span class="action-item-number">{{ wishlist_count }}</span></a
+                     >
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class="offset-widget offset_searchbar mb-30">
+               <form action="{% url 'search' %}" class="filter-search-input" method="GET">
+                 <input type="text" placeholder="Search keyword" name="q"/>
+                 <button><i class="fal fa-search"></i></button>
+               </form>
+             </div>
+           </div>
+         </div>
+      </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+
+  
+      <!-- side toggle end -->
+
+      <!-- page title area start  -->
+      <section class="page-title-area" data-background="{% static 'assets/img/bg/page-title-bg.jpg' %}">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="page-title-wrapper text-center">
+                     <h1 class="page-title mb-10">{{post.title}}</h1>
+                     <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                           <ul class="trail-items">
+                              <li class="trail-item trail-begin"><a href="{% url 'index' %}"><span>Home</span></a></li>
+                              <li class="trail-item trail-end"><span>{{post.title}}</span></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- page title area end  -->
+
+      <!-- blog area start  -->
+      <div class="blog-area pt-120 pb-90">
+         <div class="container container-small">
+            <div class="row">
+
+               <div class="col-xl-8 col-lg-12">
+                  <div class="blog-main-wrapper mb-0">
+                     <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                           <div class="blog-wrapper position-relative blog-details-wrapper mb-30">
+                              <div class="blog-thumb ">
+                                 <img src="{{post.image.url}}" alt="blog-img">
+                              </div>
+                              <div class="blog-content-wrapper">
+                                 <div class="blog-meta">
+                                    <div class="blog-date">
+                                       <i class="flaticon-calendar"></i>
+                                       <span>{{post.publish_date}}</span>
+                                    </div>
+                                    <div class="blog-user">
+                                       <i class="flaticon-avatar"></i>
+                                       <span>{{post.author}}</span>
+                                    </div>
+                                 </div>
+                                 <div class="blog-content">
+                                    <p>{{post.description}}</p>
+                                    <blockquote>
+                                       <p>{{post.quote}}</p>
+                                       <p class="mb-0"><cite>{{post.Person_name}}</cite></p>
+                                    </blockquote>
+                                    {% comment %} <p>{{post.description}}</p> {% endcomment %}
+                                    
+                                    <div class="blog__details__tag tagcloud"><span>Post Tags : </span>
+                                       <a href="#" rel="tag">{{post.tag}}</a>
+                                       
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="latest-comments mb-50 mt-50">
+                                 <h3>3 Comments</h3>
+                                 <ul>
+                                    <li>
+                                       <div class="comments-box">
+                                          <div class="comments-info d-flex">
+                                             <div class="comments-avatar mr-20">
+                                                <img src="{% static 'assets/img/member/member-img-04.png' %}" alt="img">
+                                             </div>
+                                             <div class="avatar-name">
+                                                <h5>Eleanor Fant</h5>
+                                                <span class="post-meta"> July 14, 2022</span>
+                                             </div>
+                                          </div>
+                                          <div class="comments-text ml-65">
+                                             <p>So I said lurgy dropped a clanger Jeffrey bugger cuppa gosh David
+                                                blatant have it, standard A bit of
+                                                how's your father my lady absolutely.</p>
+                                             <div class="comments-replay">
+                                                <a href="#">Reply</a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li class="children">
+                                       <div class="comments-box">
+                                          <div class="comments-info d-flex">
+                                             <div class="comments-avatar mr-20">
+                                                <img src="{% static 'assets/img/member/member-img-01.png' %}" alt="img">
+                                             </div>
+                                             <div class="avatar-name">
+                                                <h5>Dominic</h5>
+                                                <span class="post-meta">April 16, 2022 </span>
+                                             </div>
+                                          </div>
+                                          <div class="comments-text ml-65">
+                                             <p>David blatant have it, standard A bit of how's your father my lady
+                                                absolutely.</p>
+                                             <div class="comments-replay">
+                                                <a href="#">Reply</a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <ul>
+                                          <li class="children-2">
+                                             <div class="comments-box">
+                                                <div class="comments-info d-flex">
+                                                   <div class="comments-avatar mr-20">
+                                                      <img src="{% static 'assets/img/member/member-img-02.png' %}" alt="img">
+                                                   </div>
+                                                   <div class="avatar-name">
+                                                      <h5>Von Rails</h5>
+                                                      <span class="post-meta">April 18, 2022 </span>
+                                                   </div>
+                                                </div>
+                                                <div class="comments-text ml-65">
+                                                   <p>He nicked it get stuffed mate spend a penny plastered.!</p>
+                                                   <div class="comments-replay">
+                                                      <a href="#">Reply</a>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </li>
+                                       </ul>
+                                    </li>
+                                 </ul>
+                                 <ul>
+                                    <li>
+                                       <div class="comments-box">
+                                          <div class="comments-info d-flex">
+                                             <div class="comments-avatar mr-20">
+                                                <img src="{% static 'assets/img/member/member-img-04.png' %}" alt="img">
+                                             </div>
+                                             <div class="avatar-name">
+                                                <h5>Eleanor Fant</h5>
+                                                <span class="post-meta"> July 14, 2022</span>
+                                             </div>
+                                          </div>
+                                          <div class="comments-text ml-65">
+                                             <p>So I said lurgy dropped a clanger Jeffrey bugger cuppa gosh David
+                                                blatant have it, standard A bit of
+                                                how's your father my lady absolutely.</p>
+                                             <div class="comments-replay">
+                                                <a href="#">Reply</a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    <li class="children">
+                                       <div class="comments-box">
+                                          <div class="comments-info d-flex">
+                                             <div class="comments-avatar mr-20">
+                                                <img src="{% static 'assets/img/member/member-img-01.png' %}" alt="img">
+                                             </div>
+                                             <div class="avatar-name">
+                                                <h5>Dominic</h5>
+                                                <span class="post-meta">April 16, 2022 </span>
+                                             </div>
+                                          </div>
+                                          <div class="comments-text ml-65">
+                                             <p>David blatant have it, standard A bit of how's your father my lady
+                                                absolutely.</p>
+                                             <div class="comments-replay">
+                                                <a href="#">Reply</a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 </ul>
+                              </div>
+                              <div class="blog__comment">
+                                 <h3>Leave a Comment</h3>
+                                 <form action="#">
+                                    <div class="row">
+                                       <div class="col-xxl-6 col-xl-6 col-lg-6">
+                                          <div class="blog__comment-input">
+                                             <input type="text" placeholder="Your Name">
+                                          </div>
+                                       </div>
+                                       <div class="col-xxl-6 col-xl-6 col-lg-6">
+                                          <div class="blog__comment-input">
+                                             <input type="email" placeholder="Your Email">
+                                          </div>
+                                       </div>
+                                       <div class="col-xxl-12">
+                                          <div class="blog__comment-input">
+                                             <input type="text" placeholder="Website">
+                                          </div>
+                                       </div>
+                                       <div class="col-xxl-12">
+                                          <div class="blog__comment-input">
+                                             <textarea placeholder="Enter your comment ..."></textarea>
+                                          </div>
+                                       </div>
+                                       <div class="col-xxl-12">
+                                          <div class="blog__comment-agree d-flex align-items-center mb-20">
+                                             <input class="e-check-input" type="checkbox" id="e-agree">
+                                             <label class="e-check-label" for="e-agree">Save my name, email, and website
+                                                in this browser for the next
+                                                time I comment.</label>
+                                          </div>
+                                       </div>
+                                       <div class="col-xxl-12">
+                                          <div class="blog__comment-btn">
+                                             <button type="submit" class="fill-btn">Post Comment</button>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+
+               </div>
+               <div class="col-xl-4 col-lg-8 col-md-8">
+                  <div class="sidebar-widget-wrapper">
+                     <div class="sidebar__search p-relative mb-30">
+                        <form action="#">
+                           <input type="text" placeholder="Search for blogs...">
+                           <button type="submit">
+                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 584.4 584.4"
+                                 style="enable-background:new 0 0 584.4 584.4;" xml:space="preserve">
+                                 <g>
+                                    <g>
+                                       <path class="st0"
+                                          d="M565.7,474.9l-61.1-61.1c-3.8-3.8-8.8-5.9-13.9-5.9c-6.3,0-12.1,3-15.9,8.3c-16.3,22.4-36,42.1-58.4,58.4    c-4.8,3.5-7.8,8.8-8.3,14.5c-0.4,5.6,1.7,11.3,5.8,15.4l61.1,61.1c12.1,12.1,28.2,18.8,45.4,18.8c17.1,0,33.3-6.7,45.4-18.8    C590.7,540.6,590.7,499.9,565.7,474.9z">
+                                       </path>
+                                       <path class="st1"
+                                          d="M254.6,509.1c140.4,0,254.5-114.2,254.5-254.5C509.1,114.2,394.9,0,254.6,0C114.2,0,0,114.2,0,254.5    C0,394.9,114.2,509.1,254.6,509.1z M254.6,76.4c98.2,0,178.1,79.9,178.1,178.1s-79.9,178.1-178.1,178.1S76.4,352.8,76.4,254.5    S156.3,76.4,254.6,76.4z">
+                                       </path>
+                                    </g>
+                                 </g>
+                              </svg>
+                           </button>
+                        </form>
+                     </div>
+                     <div class="sidebar__widget mb-30">
+                        <div class="sidebar__widget-head mb-35">
+                           <h4 class="sidebar__widget-title">Recent posts</h4>
+                        </div>
+                        <div class="sidebar__widget-content">
+                           <div class="rc__post-wrapper">
+                              <div class="rc__post d-flex align-items-center">
+                                 <div class="rc__thumb mr-20">
+                                    <a href=""><img src="{{post.image.url}}" alt="img"></a>
+                                 </div>
+                                 <div class="rc__content">
+                                    <div class="rc__meta">
+                                       <span>{{post.publish_date}}</span>
+                                    </div>
+                                    <h6 class="rc__title"><a href="">{{post.title}}</a></h6>
+                                 </div>
+                              </div>
+                              
+                              
+                           </div>
+                        </div>
+                     </div>
+                     <div class="sidebar__widget mb-30">
+                        <div class="sidebar__widget-head mb-35">
+                           <h4 class="sidebar__widget-title">Category</h4>
+                        </div>
+                        <div class="sidebar__widget-content">
+                           <div class="sidebar__category">
+                              <ul>
+                                 {% for category in categories %}
+                                 <li><a href="/shop/?categories={{category.slug}}">{{category.name}}</a></li>
+                                 {% endfor %}
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="sidebar__widget mb-30">
+                        <div class="sidebar__widget-head mb-35">
+                           <h4 class="sidebar__widget-title">Tags</h4>
+                        </div>
+                        <div class="sidebar__widget-content">
+                           <div class="sidebar__tag">
+                              <a href="#">Fashion</a>
+                              <a href="#">Hats</a>
+                              <a href="#">Bags</a>
+                              <a href="#">Snacker</a>
+                              <a href="#">Denim</a>
+                              <a href="#">Sunglasses</a>
+                              <a href="#">Vagabond</a>
+                              <a href="#">Tips</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- blog area end  -->
+
+   </main>
+
+{% endblock %}

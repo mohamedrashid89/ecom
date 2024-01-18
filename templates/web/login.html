@@ -1,0 +1,140 @@
+{% extends 'web/partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+   <!-- Add your site or application content here -->
+   <main>
+
+
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+           <div class="side-info-content">
+             <div class="offset-widget offset-logo mb-40">
+               <div class="row align-items-center">
+                 <div class="col-9">
+                   <a href="{% url 'index' %}">
+                     <img
+                       src="{% static 'assets/img/logo/logo-bl.png' %}"
+                       alt="Logo"
+                     />
+                   </a>
+                 </div>
+                 <div class="col-3 text-end">
+                   <button class="side-info-close">
+                     <i class="fal fa-times"></i>
+                   </button>
+                 </div>
+               </div>
+             </div>
+             <div class="mobile-menu d-lg-none fix"></div>
+             <div class="offset-profile-action d-md-none">
+               <div class="offset-widget mb-40">
+                 <div class="action-list action-list-header1">
+                   <div class="action-item action-item-cart">
+                     <a href="{% url 'cart' %}" class="view-cart-button">
+                       <i class="fal fa-shopping-bag"></i>
+                       <span class="action-item-number">{{ request.session.cart_data_obj|length }}</span></a
+                     >
+                   </div>
+                   <div class="action-item action-item-wishlist">
+                     <a href="{% url 'wishlist' %}" class="view-wishlist-button">
+                       <i class="fal fa-heart"></i>
+                       <span class="action-item-number">{{ wishlist_count }}</span></a
+                     >
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class="offset-widget offset_searchbar mb-30">
+               <form action="{% url 'search' %}" class="filter-search-input" method="GET">
+                 <input type="text" placeholder="Search keyword" name="q"/>
+                 <button><i class="fal fa-search"></i></button>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+
+      <!-- side toggle end -->
+
+      <!-- page title area start  -->
+      <section class="page-title-area" data-background="{% static 'assets/img/bg/page-title-bg.jpg' %}">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="page-title-wrapper text-center">
+                     <h1 class="page-title mb-10">Login</h1>
+                     <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                           <ul class="trail-items">
+                              <li class="trail-item trail-begin"><a href="{% url 'index' %}"><span>Home</span></a></li>
+                              <li class="trail-item trail-end"><span>Login</span></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- page title area end  -->
+
+      <!-- register area start  -->
+      <div class="register-area pt-120 pb-120">
+         <div class="container container-small">
+            <div class="row justify-content-center">
+               <div class="col-lg-8">
+                  <div class="signup-form-wrapper">
+                     {% include 'web/messages.html' %}
+                     <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="signup-wrapper">
+                           <input type="text" name="username_or_email" placeholder="Email or Username">
+                        </div>
+                        <div class="signup-wrapper">
+                              <input type="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="signup-action">
+                           <div class="course-sidebar-list">
+                              <input class="signup-checkbo" type="checkbox" id="sing-in">
+                              <label class="sign-check" for="sing-in"><span>Remember me</span></label>
+                           </div>
+                        </div>
+                        <div class="sing-buttom mb-20">
+                           <button class="sing-btn">Register now</button>
+                        </div>
+                        <div class="registered wrapper">
+                           <div class="not-register">
+                              <span>Not registered?</span><span><a href="{% url 'register' %}">Sign up</a></span>
+                           </div>
+                           <div class="forget-password">
+                              <a href="#">Forgot password?</a>
+                           </div>
+                        </div>
+                        <div class="sign-social text-center">
+                           <span>Or Sign- in with</span>
+                        </div>
+                        <div class="sign-social-icon">
+                           <div class="sign-facebook">
+                              <img src="{% static 'assets/img/facebook.png' %}" alt="image" width="20px">
+                              <a href="#" class="m-1">Facebook</a>
+                           </div>
+                           <div class="sign-gmail">
+                              <img src="{% static 'assets/img/google.png' %}" alt="image" width="20px" />
+                              <a href="#" class="m-1">Google</a>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- register area end  -->
+   </main>
+{% endblock %}

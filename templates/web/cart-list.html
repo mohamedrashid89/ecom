@@ -1,0 +1,153 @@
+
+   <!-- Add your site or application content here -->
+   <main id="cart-list">
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+            <div class="side-info-content">
+               <div class="offset-widget offset-logo mb-40">
+                  <div class="row align-items-center">
+                     <div class="col-9">
+                        <a href="index.html">
+                           <img src="assets/img/logo/logo-bl.png" alt="Logo">
+                        </a>
+                     </div>
+                     <div class="col-3 text-end"><button class="side-info-close"><i class="fal fa-times"></i></button>
+                     </div>
+                  </div>
+               </div>
+               <div class="mobile-menu d-lg-none fix"></div>
+               <div class="offset-profile-action d-md-none">
+                  <div class="offset-widget mb-40">
+                     <div class="action-list action-list-header1">
+                        <div class="action-item action-item-cart">
+                           <a href="javascript:void(0)" class="view-cart-button">
+                              <i class="fal fa-shopping-bag"></i>
+                              <span class="action-item-number">3</span></a>
+                        </div>
+                        <div class="action-item action-item-wishlist">
+                           <a href="javascript:void(0)" class="view-wishlist-button">
+                              <i class="fal fa-heart"></i>
+                              <span class="action-item-number">2</span></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="offset-widget offset_searchbar mb-30">
+                  <form action="#" class="filter-search-input">
+                     <input type="text" placeholder="Search keyword">
+                     <button><i class="fal fa-search"></i></button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+      <!-- side toggle end -->
+
+      <!-- page title area start  -->
+      <section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="page-title-wrapper text-center">
+                     <h1 class="page-title mb-10">My Cart</h1>
+                     <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                           <ul class="trail-items">
+                              <li class="trail-item trail-begin"><a href="index.html"><span>Home</span></a></li>
+                              <li class="trail-item trail-end"><span>Cart</span></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- page title area end  -->
+
+      <!-- cart area start  -->
+      <section class="cart-area pt-100 pb-100">
+         <div class="container container-small">
+            <div class="row">
+               <div class="col-12">
+                  <div class="table-content table-responsive">
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th class="product-thumbnail">Images</th>
+                              <th class="cart-product-name">Product</th>
+                              <th class="product-price">Unit Price</th>
+                              <th class="product-quantity">Quantity</th>
+                              {% comment %} <th class="product-subtotal">Total</th> {% endcomment %}
+                              <th class="product-subtotal">Refresh</th>
+                              <th class="product-remove">Remove</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for prdouct_id, item in cart_data.items %}
+                           <tr class="product_data">
+                              
+                              <td class="product-thumbnail"><a href=""><img
+                                       src="{{item.image}}" alt="img"></a></td>
+                              
+                              <td class="product-name"><a href="">{{item.name}}</a></td>
+                            
+                              <td class="product-price"><span class="amount">{{item.price}}</span></td>
+                              <td class="product-quantity text-center">
+                                 <div class="product-quantity mt-10 mb-10">
+                                    <div class="product-quantity-form" >
+                                       <form class="cart-form quantity">
+                                          {% comment %} <button class="cart-minus update-cart"><i class="far fa-minus"></i></button> {% endcomment %}
+                                          <input class="cart-input w-50" type="number" value="{{item.qty}}" placeholder="Qty">
+                                          {% comment %} <button class="cart-plus update-cart"><i class="far fa-plus"></i></button> {% endcomment %}
+                                       </form>
+                                    </div>
+                                 </div>
+                              </td>
+                              
+                              <td class="product-refresh" data-title="Refresh"><button class="refresh-cart update-product" data-product="{{ product_id }}"><i class="fa fa-refresh"></i></button></td>
+                              <td class="product-remove" data-title="Remove"><button type="submit" class="remove-cart delete-product" data-product="{{ product_id }}"><i class="fa fa-remove"></i></button></td>
+                           </tr>
+                           {% endfor %}
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="row">
+                     <div class="col-12">
+                        <div class="coupon-all">
+                           <div class="coupon d-flex align-items-center">
+                              <input id="coupon_code" class="input-text" name="coupon_code" value=""
+                                 placeholder="Coupon code" type="text">
+                              <button class="fill-btn" name="apply_coupon" type="submit">Apply
+                                 coupon</button>
+                           </div>
+                           <div class="coupon2">
+                              <button onclick="window.location.reload()" class="fill-btn" name="update_cart"
+                                 type="submit">Update cart</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-5 ml-auto">
+                        <div class="cart-page-total">
+                           <h2>Cart totals</h2>
+                           <ul class="mb-20">
+                              <li>SubTotal <span>${{ cart_total_amount|floatformat:2}}</span></li>
+                              <li>Shipping  <span>Free</span></li>
+                              <li>Total <span>${{ cart_total_amount|floatformat:2 }}</span></li>
+                           </ul>
+                           <a class="border-btn" href="{% url 'checkout' %}">Proceed to checkout</a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- cart area end  -->
+   </main>
+

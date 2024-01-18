@@ -1,0 +1,87 @@
+{% extends 'web/partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+   <!-- Add your site or application content here -->
+   <main>
+
+
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+           <div class="side-info-content">
+             <div class="offset-widget offset-logo mb-40">
+               <div class="row align-items-center">
+                 <div class="col-9">
+                   <a href="{% url 'index' %}">
+                     <img
+                       src="{% static 'assets/img/logo/logo-bl.png' %}"
+                       alt="Logo"
+                     />
+                   </a>
+                 </div>
+                 <div class="col-3 text-end">
+                   <button class="side-info-close">
+                     <i class="fal fa-times"></i>
+                   </button>
+                 </div>
+               </div>
+             </div>
+             <div class="mobile-menu d-lg-none fix"></div>
+             <div class="offset-profile-action d-md-none">
+               <div class="offset-widget mb-40">
+                 <div class="action-list action-list-header1">
+                   <div class="action-item action-item-cart">
+                     <a href="{% url 'cart' %}" class="view-cart-button">
+                       <i class="fal fa-shopping-bag"></i>
+                       <span class="action-item-number">{{ request.session.cart_data_obj|length }}</span></a
+                     >
+                   </div>
+                   <div class="action-item action-item-wishlist">
+                     <a href="{% url 'wishlist' %}" class="view-wishlist-button">
+                       <i class="fal fa-heart"></i>
+                       <span class="action-item-number">{{ wishlist_count }}</span></a
+                     >
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class="offset-widget offset_searchbar mb-30">
+               <form action="{% url 'search' %}" class="filter-search-input" method="GET">
+                 <input type="text" placeholder="Search keyword" name="q"/>
+                 <button><i class="fal fa-search"></i></button>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+
+
+      <!-- side toggle end -->
+
+
+      <!-- error area start  -->
+      <section class="error-area">
+         <div class="container container-small">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="error-content">
+                     <div class="error-number">404</div>
+                     <h2 class="error-text">Sorry! <br> Page didn't found</h2>
+                     <p>The page you are looking for might have been removed its name changed or is temporarily
+                        unavailable.</p>
+                     <div class="error-btn">
+                        <a href="{% url 'index' %}" class="fill-btn">Back to Homepage</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- error area end  -->
+   </main>
+{% endblock %}

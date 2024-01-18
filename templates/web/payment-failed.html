@@ -1,0 +1,118 @@
+{% extends 'web/partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+   <!-- Add your site or application content here -->
+
+
+   <head>
+    <style>
+        
+        .container-1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        .content {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blod {
+            color: #e74c3c;
+        }
+        
+        .paragraph {
+            margin: 10px 0;
+        }
+        
+        .home {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .home:hover {
+            background-color: #2980b9;
+        }
+        
+    </style>
+   </head>
+   <main id="cart-list">
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+           <div class="side-info-content">
+             <div class="offset-widget offset-logo mb-40">
+               <div class="row align-items-center">
+                 <div class="col-9">
+                   <a href="{% url 'index' %}">
+                     <img
+                       src="{% static 'assets/img/logo/logo-bl.png' %}"
+                       alt="Logo"
+                     />
+                   </a>
+                 </div>
+                 <div class="col-3 text-end">
+                   <button class="side-info-close">
+                     <i class="fal fa-times"></i>
+                   </button>
+                 </div>
+               </div>
+             </div>
+             <div class="mobile-menu d-lg-none fix"></div>
+             <div class="offset-profile-action d-md-none">
+               <div class="offset-widget mb-40">
+                 <div class="action-list action-list-header1">
+                   <div class="action-item action-item-cart">
+                     <a href="{% url 'cart' %}" class="view-cart-button">
+                       <i class="fal fa-shopping-bag"></i>
+                       <span class="action-item-number">{{ request.session.cart_data_obj|length }}</span></a
+                     >
+                   </div>
+                   <div class="action-item action-item-wishlist">
+                     <a href="{% url 'wishlist' %}" class="view-wishlist-button">
+                       <i class="fal fa-heart"></i>
+                       <span class="action-item-number">{{ wishlist_count }}</span></a
+                     >
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class="offset-widget offset_searchbar mb-30">
+               <form action="{% url 'search' %}" class="filter-search-input" method="GET">
+                 <input type="text" placeholder="Search keyword" name="q"/>
+                 <button><i class="fal fa-search"></i></button>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+
+      <div class="container-1">
+        <div class="content">
+            <h1 class="blod">Payment Failed</h1>
+            <p class="paragraph">Unfortunately, your payment was not successful.</p>
+            <p class="paragraph">Please check your payment details and try again.</p>
+            <a href="{% url 'index' %}" class="home">Back to Home</a>
+        </div>
+    </div>
+
+     
+   </main>
+
+   
+
+{% endblock %}

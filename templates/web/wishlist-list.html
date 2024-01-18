@@ -1,0 +1,123 @@
+
+
+   <!-- Add your site or application content here -->
+   <main id="wishlist-list">
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+            <div class="side-info-content">
+               <div class="offset-widget offset-logo mb-40">
+                  <div class="row align-items-center">
+                     <div class="col-9">
+                        <a href="index.html">
+                           <img src="assets/img/logo/logo-bl.png" alt="Logo">
+                        </a>
+                     </div>
+                     <div class="col-3 text-end"><button class="side-info-close"><i class="fal fa-times"></i></button>
+                     </div>
+                  </div>
+               </div>
+               <div class="mobile-menu d-lg-none fix"></div>
+               <div class="offset-profile-action d-md-none">
+                  <div class="offset-widget mb-40">
+                     <div class="action-list action-list-header1">
+                        <div class="action-item action-item-cart">
+                           <a href="javascript:void(0)" class="view-cart-button">
+                              <i class="fal fa-shopping-bag"></i>
+                              <span class="action-item-number">3</span></a>
+                        </div>
+                        <div class="action-item action-item-wishlist">
+                           <a href="javascript:void(0)" class="view-wishlist-button">
+                              <i class="fal fa-heart"></i>
+                              <span class="action-item-number">2</span></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="offset-widget offset_searchbar mb-30">
+                  <form action="#" class="filter-search-input">
+                     <input type="text" placeholder="Search keyword">
+                     <button><i class="fal fa-search"></i></button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+
+      <!-- side toggle end -->
+
+      <!-- page title area start  -->
+      <section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="page-title-wrapper text-center">
+                     <h1 class="page-title mb-10">My Wishlist</h1>
+                     <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                           <ul class="trail-items">
+                              <li class="trail-item trail-begin"><a href="{% url 'index' %}"><span>Home</span></a></li>
+                              <li class="trail-item trail-end"><span>Wishlist</span></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- page title area end  -->
+
+      <!-- cart area start  -->
+      <div class="cart-area pt-100 pb-100">
+         <div class="container container-small">
+            <div class="row">
+               <div class="col-12">
+                  <form action="#">
+                     <div class="table-content table-responsive">
+                        <table class="table">
+                           <thead>
+                              <tr>
+                                 <th class="product-thumbnail">Images</th>
+                                 <th class="cart-product-name">Product</th>
+                                 <th class="product-price">Unit Price</th>
+                                 <th class="product-quantity">Add to cart</th>
+                                 <th class="product-remove">Remove</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for w in w %}
+                              <tr>
+                                 <td class="product-thumbnail"><a href=""><img
+                                          src="{{w.product.image.url}}" alt="img"></a></td>
+                                 <td class="product-name"><a href="{% url 'shop_detail' w.product.slug %}">{{w.product.name}}</a></td>
+                                 <td class="product-price"><span class="amount current-product-price-{{p.id}}">${{w.product.price}}</span></td>
+                                 <td class="product-quantity">
+                                    <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{w.product.id}}">
+                                    <input type="hidden" class="product-id-{{w.product.id}}" value="{{w.product.id}}">
+                                    <input type="hidden" class="product-image-{{w.product.id}}" value="{{w.product.imageURL}}">
+                                    <input type="hidden" class="product-id-{{w.product.id}}" value="{{w.product.id}}">
+                                    <input type="hidden" class="product-name-{{w.product.id}}" value="{{w.product.name}}">
+
+                                    <button class="border-btn add-to-cart-btn" data-index="{{w.product.id}}">Add to Cart</button>
+                                 </td>
+                                 <td class="product-remove"><button class="remove-wishlist-item delete-wishlist-product" data-wishlist-product="{{w.id}}"><i class="fa fa-times"></i></button></td>
+                              </tr>
+                              {% empty %}
+                              <tr>
+                                 <td colspan="6" style="text-align:center;"><strong>No items in your wishlist.</strong></td>
+                              </tr>
+                              {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- cart area end  -->
+
+   </main>

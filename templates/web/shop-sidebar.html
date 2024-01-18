@@ -1,0 +1,506 @@
+{% extends 'web/partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<head>
+   <style>
+      input[type=range]{
+         -webkit-appearance: none;
+         margin-right: 15px;
+         height: 7px;
+         width: 100%;
+         background: #000000;
+         border-radius: 5px;
+         background-image: linear-gradient(#000000, #000000);
+         background-size: 100% 100%;
+         background-repeat: no-repeat;
+      }
+      input[type=range]::-webkit-silder-thumb {
+         -webkit-appearance: none;
+         width : 20px;
+         height : 20px;
+         border-radius: 50%;
+         background: #000000;
+         box-shadow: -306px -306px 0 white;
+         cursor: w-resize;
+         transition: 3s ease-in-out;
+      }
+      input[type=range]:focus::-webkit-slider-runnable-track {
+         -webkit-appearance: none;
+         box-shadow: none;
+         border: none;
+         background: transparent;
+      }
+      .input-group{
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         width: 100%;
+         border: 2px solid #1111;
+         margin-top: 10px;
+         outline: none;
+         border-radius: 5px;
+         padding: 10px;
+         padding-left: 20px;
+      }
+ 
+   </style>
+</head>
+
+   <!-- Add your site or application content here -->
+   <main>
+
+
+      <!-- side toggle start -->
+      <div class="fix">
+         <div class="side-info">
+           <div class="side-info-content">
+             <div class="offset-widget offset-logo mb-40">
+               <div class="row align-items-center">
+                 <div class="col-9">
+                   <a href="{% url 'index' %}">
+                     <img
+                       src="{% static 'assets/img/logo/logo-bl.png' %}"
+                       alt="Logo"
+                     />
+                   </a>
+                 </div>
+                 <div class="col-3 text-end">
+                   <button class="side-info-close">
+                     <i class="fal fa-times"></i>
+                   </button>
+                 </div>
+               </div>
+             </div>
+             <div class="mobile-menu d-lg-none fix"></div>
+             <div class="offset-profile-action d-md-none">
+               <div class="offset-widget mb-40">
+                 <div class="action-list action-list-header1">
+                   <div class="action-item action-item-cart">
+                     <a href="{% url 'cart' %}" class="view-cart-button">
+                       <i class="fal fa-shopping-bag"></i>
+                       <span class="action-item-number">{{ request.session.cart_data_obj|length }}</span></a
+                     >
+                   </div>
+                   <div class="action-item action-item-wishlist">
+                     <a href="{% url 'wishlist' %}" class="view-wishlist-button">
+                       <i class="fal fa-heart"></i>
+                       <span class="action-item-number">{{ wishlist_count }}</span></a
+                     >
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class="offset-widget offset_searchbar mb-30">
+               <form action="{% url 'search' %}" class="filter-search-input" method="GET">
+                 <input type="text" placeholder="Search keyword" name="q"/>
+                 <button><i class="fal fa-search"></i></button>
+               </form>
+             </div>
+           </div>
+         </div>
+      </div>
+      <div class="offcanvas-overlay"></div>
+      <div class="offcanvas-overlay-white"></div>
+
+      <div class="fix">
+         <div class="sidebar-action sidebar-filter">
+            <button class="close-sidebar">Close<i class="fal fa-times"></i></button>
+            <h4 class="sidebar-action-title">Filter Items</h4>
+            <div class="product-filters mb-0">
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Search</h4>
+                  <div class="filter-widget-content">
+                     <div class="filter-widget-search">
+                        <input type="text" placeholder="Search here..">
+                        <button type="submit"><i class="fal fa-search"></i></button>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Category</h4>
+                  <div class="filter-widget-content">
+                     <div class="category-items">
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Shirts</div> <span class="category-items-number">8</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Pants</div> <span class="category-items-number">12</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Jackets</div> <span class="category-items-number">17</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Leggings</div> <span class="category-items-number">6</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Beachware</div> <span class="category-items-number">25</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Underwear</div> <span class="category-items-number">17</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Bag</div> <span class="category-items-number">15</span>
+                        </a>
+                        <a href="shop.html" class="category-item">
+                           <div class="category-name">Belt</div> <span class="category-items-number">9</span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Size</h4>
+                  <div class="filter-widget-content">
+                     <div class="category-sizes">
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-ex-s">
+                           <label class="check-label" for="s-ex-s">Extra Small</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-sm">
+                           <label class="check-label" for="s-sm">Small</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-md">
+                           <label class="check-label" for="s-md">Medium</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-large">
+                           <label class="check-label" for="s-large">Large</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-ex-l">
+                           <label class="check-label" for="s-ex-l">Extra Large</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Rating</h4>
+                  <div class="filter-widget-content">
+                     <div class="category-ratings">
+                        <div class="category-rating">
+                           <input class="radio-box" type="radio" id="s-st-5" name="rating">
+                           <label class="radio-star" for="s-st-5">
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                           </label>
+                        </div>
+                        <div class="category-rating">
+                           <input class="radio-box" type="radio" id="s-st-4" name="rating">
+                           <label class="radio-star" for="s-st-4">
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fal fa-star"></i>
+                           </label>
+                        </div>
+                        <div class="category-rating">
+                           <input class="radio-box" type="radio" id="s-st-3" name="rating">
+                           <label class="radio-star" for="s-st-3">
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fal fa-star"></i>
+                              <i class="fal fa-star"></i>
+                           </label>
+                        </div>
+                        <div class="category-rating">
+                           <input class="radio-box" type="radio" id="s-st-2" name="rating">
+                           <label class="radio-star" for="s-st-2">
+                              <i class="fas fa-star"></i>
+                              <i class="fas fa-star"></i>
+                              <i class="fal fa-star"></i>
+                              <i class="fal fa-star"></i>
+                              <i class="fal fa-star"></i>
+                           </label>
+                        </div>
+                        <div class="category-rating">
+                           <input class="radio-box" type="radio" id="s-st-1" name="rating">
+                           <label class="radio-star" for="s-st-1">
+                              <i class="fas fa-star"></i>
+                              <i class="fal fa-star"></i>
+                              <i class="fal fa-star"></i>
+                              <i class="fal fa-star"></i>
+                              <i class="fal fa-star"></i>
+                           </label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Colour</h4>
+                  <div class="filter-widget-content">
+                     <div class="category-colours">
+                        <div class="category-color">
+                           <ul class="product-color-nav">
+                              <li class="cl-pink active">
+                                 <img src="assets/img/product/product-img1.jpg" alt="img">
+                              </li>
+                              <li class="cl-black">
+                                 <img src="assets/img/product/product-img2.jpg" alt="img">
+                              </li>
+                              <li class="cl-blue">
+                                 <img src="assets/img/product/product-img3.jpg" alt="img">
+                              </li>
+                              <li class="cl-red">
+                                 <img src="assets/img/product/product-img4.jpg" alt="img">
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Brand</h4>
+                  <div class="filter-widget-content">
+                     <div class="category-brands">
+                        <div class="category-brand">
+                           <input class="check-box" type="checkbox" id="s-b-next">
+                           <label class="check-label" for="s-b-next">Next</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-b-ri">
+                           <label class="check-label" for="s-b-ri">River Island</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-b-geox">
+                           <label class="check-label" for="s-b-geox">Geox</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-b-eco">
+                           <label class="check-label" for="s-b-eco">Ecomart</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-b-abby">
+                           <label class="check-label" for="s-b-abby">Abby</label>
+                        </div>
+                        <div class="category-size">
+                           <input class="check-box" type="checkbox" id="s-b-nike">
+                           <label class="check-label" for="s-b-nike">Nike</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Price</h4>
+                  <div class="filter-widget-content">
+                     <div class="filter-price">
+                        <div class="slider-range">
+                           <div class="slider-range-bar"></div>
+                           <p>
+                              <label for="s-amount">Price :</label>
+                              <input type="text" id="s-amount" class="amount" readonly>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="filter-widget">
+                  <h4 class="filter-widget-title drop-btn">Tags</h4>
+                  <div class="filter-widget-content">
+                     <div class="category-tags">
+                        <a href="#" class="category-tag">Fashion</a>
+                        <a href="#" class="category-tag">Hats</a>
+                        <a href="#" class="category-tag">Sandal</a>
+                        <a href="#" class="category-tag">Bags</a>
+                        <a href="#" class="category-tag">Snacker</a>
+                        <a href="#" class="category-tag">Denim</a>
+                        <a href="#" class="category-tag">Sunglasses</a>
+                        <a href="#" class="category-tag">Beachwear</a>
+                        <a href="#" class="category-tag">Vagabond</a>
+                        <a href="#" class="category-tag">Trend</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- side toggle end -->
+
+      <!-- page title area start  -->
+      <section class="page-title-area" data-background="{% static 'assets/img/bg/page-title-bg.jpg' %}">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="page-title-wrapper text-center">
+                     <h1 class="page-title mb-10">Shop</h1>
+                     <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                           <ul class="trail-items">
+                              <li class="trail-item trail-begin"><a href="{% url 'index' %}"><span>Home</span></a></li>
+                              <li class="trail-item trail-end"><span>Shop</span></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- page title area end  -->
+
+      <!-- shop main area start  -->
+      <div class="shop-main-area pt-120 pb-10">
+         <div class="container">
+            <div class="row">
+
+               <div class="col-xl-3 col-lg-4 col-md-6">
+                  <div class="sidebar-widget-wrapper mb-110 d-none d-lg-block">
+                     <div class="product-filters mb-50">
+                        <div class="filter-widget">
+                           <h4 class="filter-widget-title drop-btn">Search</h4>
+                           <div class="filter-widget-content">
+                              <div class="filter-widget-search">
+                                 <input type="text" placeholder="Search here..">
+                                 <button type="submit"><i class="fal fa-search"></i></button>
+                              </div>
+
+                           </div>
+                        </div>
+                        <div class="filter-widget">
+                           <h4 class="filter-widget-title drop-btn">Category</h4>
+                           <div class="filter-widget-content">
+                              <div class="category-items" id="category-items">
+
+                                 <a href="/shop/" class="category-item">
+                                    <div class="category-name">All Products</div> <span class="category-items-number"></span>
+                                 </a>
+                                 {% for category in categories %}
+                                 <a href="/shop/?categories={{category.slug}}" class="category-item">
+                                    <div class="category-name">{{category.name}}</div> <span class="category-items-number"></span>
+                                 </a>
+                                 {% endfor %}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="filter-widget">
+                           <h4 class="filter-widget-title drop-btn">Price Range</h4>
+                           <div class="price-range">
+                                 <input type="range" name="range" value="{{min_max_price.price__min|floatformat:2}}" class="silder-range" id="range" min="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" oninput="max_price.value=this.value"/>
+                              
+                              <div class="d-flex justify-content-between">
+                                 <strong class="">From: ${{min_max_price.price__min|floatformat:2}}</strong>
+                                 <strong class="">To: ${{min_max_price.price__max|floatformat:2}}</strong>
+                              </div>
+                              <input type="number" name="" value="{{min_max_price.price__min|floatformat:2}}" id="max_price" class="input-group" min="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" placeholder="Current Price" onkeyup="range.value=this.value">
+
+                           </div>
+                           <button class="btn mt-10 w-100 btn-success" type="button" id="price-filter-btn">Filter By Price</button>
+
+                           {% comment %} <h3>{{min_max_price}}</h3> {% endcomment %}
+                        </div>
+                        <div class="filter-widget">
+                           <h4 class="filter-widget-title drop-btn">Tags</h4>
+                           <div class="filter-widget-content">
+                              <div class="category-tags">
+                                 <a href="#" class="category-tag">Fashion</a>
+                                 <a href="#" class="category-tag">Hats</a>
+                                 <a href="#" class="category-tag">Sandal</a>
+                                 <a href="#" class="category-tag">Bags</a>
+                                 <a href="#" class="category-tag">Snacker</a>
+                                 <a href="#" class="category-tag">Denim</a>
+                                 <a href="#" class="category-tag">Sunglasses</a>
+                                 <a href="#" class="category-tag">Beachwear</a>
+                                 <a href="#" class="category-tag">Vagabond</a>
+                                 <a href="#" class="category-tag">Trend</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="col-xl-9 col-lg-8 col-md-12">
+                  <div class="shop-main-wrapper mb-60">
+                     <div class="shop-main-wrapper-head mb-30">
+                        <div class="swowing-list">Showing <span>12 of 39</span> Products</div>
+                        <div class="sort-type-filter">
+                           <div class="sorting-type">
+                              <span>Sort by : </span>
+                              <select class="sorting-list" name="sorting-list" id="sorting-list">
+                                 <option value="1">Default</option>
+                                 <option value="2">Most popular</option>
+                                 <option value="3">Date</option>
+                                 <option value="4">Trending</option>
+                                 <option value="4">Featured</option>
+                                 <option value="4">Discounted</option>
+                              </select>
+                           </div>
+                           <div class="action-item action-item-filter d-lg-none">
+                              <a href="javascript:void(0)" class="view-filter-button">
+                                 <i class="flaticon-filter"></i>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="products-wrapper products-5-column">
+                        {% for p in products %}
+                        <div class="single-product">
+                           <div class="product-image pos-rel">
+                              <a href="{% url 'shop_detail' p.slug %}" class=""><img src="{{p.imageURL}}" alt="img"></a>
+                              <div class="product-action">
+                                 {% comment %} <a href="#" class="quick-view-btn"><i class="fal fa-eye"></i></a>
+                                 
+                                 <a href="#" class="compare-btn"><i class="fal fa-exchange"></i></a> {% endcomment %}
+                              </div>
+                              <div class="product-action-bottom">
+                                 <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{p.id}}">
+                                 <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
+                                 <input type="hidden" class="product-image-{{p.id}}" value="{{p.imageURL}}">
+                                 <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
+                                 <input type="hidden" class="product-name-{{p.id}}" value="{{p.name}}">
+
+                                 <button class="add-cart-btn add-to-cart-btn" data-index="{{p.id}}" id="add-to-cart-btn"><i class="fal fa-shopping-bag"></i>Add to Cart</button>
+                              </div>
+                              <div class="product-sticker-wrapper">
+                                 <span class="product-sticker" style="background-color: {{p.color.color}}">{{p.color.status}}</span>
+                              </div>
+                           </div>
+                           <div class="product-desc">
+                              <div class="product-name"><a href="{% url 'shop_detail' p.slug %}">{{p.name}}</a></div>
+                              <div class="product-price">
+                                 <span class="price-now current-product-price-{{p.id}}">${{p.price|floatformat:2}}</span>
+                              </div>
+                              <div class="d-flex justify-content-end">
+                                 <button class="add-to-wishlist" data-product-item="{{p.id}}"><i class="fal fa-heart fs-5"></i></button>
+                              </div>
+                              <ul class="product-color-nav">
+                                 <li class="cl-pink active">
+                                    <img src="{% static 'assets/img/shirt/1/1.jpg' %}" alt="img">
+                                 </li>
+                                 <li class="cl-light-white">
+                                    <img src="{% static 'assets/img/shirt/1/3.jpg' %}" alt="img">
+                                 </li>
+                                 <li class="cl-black">
+                                    <img src="{% static 'assets/img/shirt/1/5.jpg' %}" alt="img">
+                                 </li>
+                                 <li class="cl-navy">
+                                    <img src="{% static 'assets/img/shirt/1/7.jpg' %}" alt="img">
+                                 </li>
+                              </ul>
+                           </div>
+                          
+                        </div>
+                        {% endfor %}
+                        
+                     </div>
+
+                  </div>
+               </div>
+               
+            </div>
+         </div>
+      </div>
+      <!-- shop main area end  -->
+
+   </main>
+
+  {% endblock %}

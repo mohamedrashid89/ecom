@@ -1,0 +1,118 @@
+{% load static %}
+
+
+<!-- header area start  -->
+<header class="header4">
+    <div class="header-note">
+       <p>Get your entire order with an extra <span>25%</span> OFF for this festival</p>
+       <span class="note-close-btn"><i class="flaticon-cancel"></i></span>
+    </div>
+    <div class="header-top d-none d-md-block">
+       <div class="container header-container">
+          <div class="row align-items-center">
+             <div class="col-xl-6 col-lg-6 col-md-6">
+                <div class="header-top-link">
+                   <a href="about.html" class="text-btn">About Us</a>
+                   <a href="{% url 'register' %}" class="text-btn">My account</a>
+                </div>
+             </div>
+             <div class="col-xl-6 col-lg-6 col-md-6">
+                <div class="header-top-right">
+                  {% if user.is_authenticated %}
+                   <a href="{% url 'logout' %}" class="text-btn"><i class="flaticon-avatar"></i>Sign out</a>
+                   {% else %}
+                   <a href="{% url 'log' %}" class="text-btn"><i class="flaticon-avatar"></i>Sign in</a>
+                   {% endif %}
+                   <select name="lan-select" id="lan-select" class="language-select border-left">
+                      <option value="1">English</option>
+                      <option value="2">Hindi</option>
+                      <option value="3">Arabic</option>
+                      <option value="3">Bengali</option>
+                      <option value="3">French</option>
+                   </select>
+                   <select name="currency-select" id="currency-select" class="currency-select border-left">
+                      <option value="1">USD</option>
+                      <option value="2">EUR</option>
+                      <option value="3">JPY</option>
+                      <option value="4">GBP</option>
+                   </select>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div id="header-sticky" class="header-main header-main1">
+       <div class="container">
+          <div class="row align-items-center">
+             <div class="col-xl-12 col-lg-12">
+                <div class="header-main-content-wrapper">
+                   <div class="header-main-left header-main-left-header1">
+                      <div class="header-logo header1-logo">
+                         <a href="{% url 'index' %}" class="logo-bl"><img src="{% static 'assets/img/logo/logo-bl-tr.png' %}"
+                               alt="logo-img"></a>
+                      </div>
+                      <div class="main-menu main-menu4 d-none d-lg-block">
+                         <nav id="mobile-menu">
+                            <ul>
+                               <li class=""><a href="{% url 'index' %}">Home</a>
+                               </li>
+                               <li class=""><a href="{% url 'shop' %}">Shop</a>
+                               </li>
+                               <li class="menu-item-has-children"><a href="#">Pages</a>
+                                  <ul class="sub-menu">
+                                     <li><a href="{% url 'about' %}">About</a></li>
+                                     <li><a href="{% url 'register' %}">Register</a></li>
+                                       {% if user.is_authenticated %}
+                                       
+                                       <li><a href="{% url 'logout' %}">Logout</a></li>
+                                       {% else %}
+                                       <li><a href="{% url 'log' %}">Login</a></li>
+                                       {% endif %}
+                                     <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                     <li><a href="{% url 'error' %}">404 page</a></li>
+                                  </ul>
+                               </li>
+                               <li class=""><a href="{% url 'blog' %}">Blog</a>
+                               </li>
+                               <li><a href="{% url 'contact' %}">Contact</a></li>
+                            </ul>
+                         </nav>
+                      </div>
+                   </div>
+                   <div class="header-main-right header-main-right-header1">
+                      <form action="{% url 'search' %}" class="filter-search-input header-search d-none d-xl-inline-block" method="GET">
+                         <input type="text" placeholder="Search Products....." name="q">
+                         <button type="submit"><i class="fal fa-search"></i></button>
+                      </form>
+                      <div class="action-list d-none d-md-flex action-list-header4">
+                         <div class="action-item action-item-cart">
+                           <a href="{% url 'cart' %}" class="view-cart-button">
+                               <i class="fal fa-shopping-bag"></i>
+                               <span class="action-item-number cart-items-count">{{ request.session.cart_data_obj|length }}</span>
+                           </a>
+                         </div>
+                         <div class="action-item action-item-wishlist">
+                            <a href="{% url 'wishlist' %}" class="view-wishlist-button">
+                               <i class="fal fa-heart"></i>
+                               <span class="action-item-number wish-items-count">{{ wishlist_count }}</span></a>
+                         </div>
+                      </div>
+                      <div class="menu-bar d-xl-none ml-20">
+                         <a class="side-toggle" href="javascript:void(0)">
+                            <div class="bar-icon">
+                               <span></span>
+                               <span></span>
+                               <span></span>
+                            </div>
+                         </a>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</header>
+<!-- header area end -->
+
+

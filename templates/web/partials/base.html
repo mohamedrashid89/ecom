@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <!-- Mirrored from wphix.com/html/ecomart-prev/ecomart/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 05:10:34 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Ecomart - Fashion eCommerce HTML Template</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Place favicon.ico in the root directory -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'assets/img/favicon.png' %}"
+    />
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/preloader.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/meanmenu.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/owl.carousel.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/backToTop.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/magnific-popup.css' %}"
+    />
+    {% comment %}
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/ui-range-slider.css' %}"
+    />
+    {% endcomment %}
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/fontAwesome5Pro.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/default.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    
+    <!-- Include SweetAlert CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <script>
+      var user = "{{request.user}}";
+
+      function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken("csrftoken");
+    </script>
+  </head>
+
+  <body>
+    {% include 'web/partials/header.html' %} {% block content %}
+
+   
+
+    {% endblock %} {% include 'web/partials/footer.html' %}
+
+    <!-- JS here -->
+    <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/meanmenu.js' %}"></script>
+    <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/parallax.min.js' %}"></script>
+    <script src="{% static 'assets/js/backToTop.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-ui-slider-range.js' %}"></script>
+    <script src="{% static 'assets/js/nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/counterup.min.js' %}"></script>
+    <script src="{% static 'assets/js/ajax-form.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/shop.js' %}"></script>
+    <!-- Invoice JS -->
+    <script src="{% static 'assets/js/invoice/jspdf.min.js' %}"></script>
+    <script src="{% static 'assets/js/invoice/invoice.js' %}"></script>
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/11b7e46b18.js" crossorigin="anonymous"></script>
+  </body>
+</html>
