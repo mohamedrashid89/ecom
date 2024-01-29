@@ -4,6 +4,8 @@
 
 {% block content %}
 
+   {% include 'web/messages.html' %}
+
    <!-- Add your site or application content here -->
    <main>
 
@@ -205,7 +207,8 @@
                   <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 order-xxl-1">
                      <div class="product-category2-single pos-rel mb-30">
                         <div class="product-category-img">
-                           <a href="shop.html"><img src="{% static 'assets/img/product_category/product-cat-10.jpg' %}"
+                           
+                           <a href=""><img src="{% static 'assets/img/product_category/product-cat-10.jpg' %}"
                                  alt="product-img"></a>
                         </div>
                         <div class="product-category-inner">
@@ -218,12 +221,12 @@
                   <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 order-xxl-3">
                      <div class="product-category2-single pos-rel mb-30">
                         <div class="product-category-img">
-                           <a href="shop.html"><img src="{% static 'assets/img/product_category/product-cat-15.jpg' %}"
+                           <a href="{% url 'shop' %}"><img src="{% static 'assets/img/product_category/product-cat-15.jpg' %}"
                                  alt="product-img"></a>
                         </div>
                         <div class="product-category-inner">
                            <div class="product-category-content">
-                              <a href="shop.html" class="product-category">Hot Dresses</a>
+                              <a href="{% url 'shop' %}" class="product-category">Hot Dresses</a>
                            </div>
                         </div>
                      </div>
@@ -233,12 +236,12 @@
                         <div class="col-xxl-6 col-xl-3 col-lg-3 col-md-6 col-sm-6">
                            <div class="product-category2-single pos-rel mb-30">
                               <div class="product-category-img">
-                                 <a href="shop.html"><img src="{% static 'assets/img/product_category/product-cat-11.jpg' %}"
+                                 <a href="{% url 'shop' %}"><img src="{% static 'assets/img/product_category/product-cat-11.jpg' %}"
                                        alt="product-img"></a>
                               </div>
                               <div class="product-category-inner">
                                  <div class="product-category-content">
-                                    <a href="shop.html" class="product-category">Footwear</a>
+                                    <a href="{% url 'shop' %}" class="product-category">Footwear</a>
                                  </div>
                               </div>
                            </div>
@@ -246,12 +249,12 @@
                         <div class="col-xxl-6 col-xl-3 col-lg-3 col-md-6 col-sm-6">
                            <div class="product-category2-single pos-rel mb-30">
                               <div class="product-category-img">
-                                 <a href="shop.html"><img src="{% static 'assets/img/product_category/product-cat-12.jpg' %}"
+                                 <a href="{% url 'shop' %}"><img src="{% static 'assets/img/product_category/product-cat-12.jpg' %}"
                                        alt="product-img"></a>
                               </div>
                               <div class="product-category-inner">
                                  <div class="product-category-content">
-                                    <a href="shop.html" class="product-category">Sunglass</a>
+                                    <a href="{% url 'shop' %}" class="product-category">Sunglass</a>
                                  </div>
                               </div>
                            </div>
@@ -259,12 +262,12 @@
                         <div class="col-xxl-6 col-xl-3 col-lg-3 col-md-6 col-sm-6">
                            <div class="product-category2-single pos-rel mb-30">
                               <div class="product-category-img">
-                                 <a href="shop.html"><img src="{% static 'assets/img/product_category/product-cat-13.jpg' %}"
+                                 <a href="{% url 'shop' %}"><img src="{% static 'assets/img/product_category/product-cat-13.jpg' %}"
                                        alt="product-img"></a>
                               </div>
                               <div class="product-category-inner">
                                  <div class="product-category-content">
-                                    <a href="shop.html" class="product-category">Coat & Jacket</a>
+                                    <a href="{% url 'shop' %}" class="product-category">Coat & Jacket</a>
                                  </div>
                               </div>
                            </div>
@@ -272,12 +275,12 @@
                         <div class="col-xxl-6 col-xl-3 col-lg-3 col-md-6 col-sm-6">
                            <div class="product-category2-single pos-rel mb-30">
                               <div class="product-category-img">
-                                 <a href="shop.html"><img src="{% static 'assets/img/product_category/product-cat-14.jpg' %}"
+                                 <a href="{% url 'shop' %}"><img src="{% static 'assets/img/product_category/product-cat-14.jpg' %}"
                                        alt="product-img"></a>
                               </div>
                               <div class="product-category-inner">
                                  <div class="product-category-content">
-                                    <a href="shop.html" class="product-category">Jewelry</a>
+                                    <a href="{% url 'shop' %}" class="product-category">Jewelry</a>
                                  </div>
                               </div>
                            </div>
@@ -292,6 +295,7 @@
 
       <!-- product area start  -->
       <section class="product-area pt-120 pb-90">
+
          <div class="container">
             <div class="row justify-content-center">
                <div class="col-xl-8">
@@ -340,23 +344,11 @@
                                        <div class="product-image pos-rel">
                                           <a href="{% url 'shop_detail' p.slug %}" class=""><img src="{{p.imageURL}}"
                                                 alt="img"></a>
-                                          <div class="product-action-bottom">
-                                             <a href="#" class="quick-view-btn"><i class="fal fa-eye"></i></a>
-
-                                             <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{p.id}}">
-                                             <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                                             <input type="hidden" class="product-image-{{p.id}}" value="{{p.imageURL}}">
-                                             <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                                             <input type="hidden" class="product-name-{{p.id}}" value="{{p.name}}">
-                                             <button type="submit" class="add-cart-btn add-to-cart-btn" data-index="{{p.id}}" id="add-to-cart-btn"><i
-                                                   class="fal fa-shopping-bag"></i>Add
-                                                to
-                                                Cart</button>
-                                             <button class="wishlist-btn add-to-wishlist" data-product-item="{{p.id}}"><i class="fal fa-heart"></i></button>
-                                          </div>
+                                          
                                           <div class="product-sticker-wrapper">
                                              <span class="product-sticker" style="background-color: {{p.color.color}}">{{p.color.status}}</span>
                                           </div>
+                                          
                                           <div class="product-nav">
                                              <div class="product-nav-prev"><i class="fal fa-angle-left"></i></div>
                                              <div class="product-nav-next"><i class="fal fa-angle-right"></i></div>
@@ -366,7 +358,10 @@
                                           <div class="product-name"><a href="{% url 'shop_detail' p.slug %}">{{p.name}}</a>
                                           </div>
                                           <div class="product-price">
-                                             <span class="price-now">${{p.price}}</span>
+                                             <span class="price-now">$</span><span class="price-now current-product-price-{{ p.id }}">{{p.price|floatformat:2}}</span>
+                                          </div>
+                                          <div class="d-flex justify-content-end">
+                                             <button class="add-to-wishlist" data-product-item="{{p.id}}"><i class="fal fa-heart fs-5"></i></button>
                                           </div>
                                           <ul class="product-color-nav">
                                              {% for image in p.images_set.all %}
@@ -1601,15 +1596,17 @@
                <div class="newsletter-inner">
                   <div class="newsletter-content">
                      <div class="section-title text-center">
+                        
                         <h2 class="section-main-title mb-30">Subscribe Newsletter</h2>
                      </div>
                      <p class="mb-40">Enter your email below to be the first to know about new collections and product
                         launches.</p>
-                        <form id="subscribeForm" class="subscribe-form subscribe-form-newsletter" method="post">
+                        <form id="subscribeForm" class="subscribe-form subscribe-form-newsletter" method="post" action="{% url 'index' %}">
                            {% csrf_token %}
                            <input type="text" placeholder="Enter your email" name="email" id="email">
-                           <button type="button" onclick="subscribe()">Subscribe<i class="fas fa-long-arrow-right"></i></button>
-                        </form>
+                           <button type="submit" name="subscribeButton">Subscribe<i class="fas fa-long-arrow-right"></i></button>
+                       </form>
+                       
                   </div>
                </div>
             </div>
@@ -1620,29 +1617,36 @@
    </main>
 
    <script>
-      function subscribe() {
-          var email = $('#email').val();
-      
-          if (email) {
-              $.ajax({
-                  type: 'POST',
-                  url: '{% url "index" %}',  // Update this with the actual URL for the subscription endpoint
-                  data: {
-                      'email': email,
-                      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-                  },
-                  success: function(response) {
-                      // Handle the success response here
-                      console.log(response);
-                  },
-                  error: function(error) {
-                      // Handle the error response here
-                      console.error(error);
-                      $('#email').val('');
-                  }
-              });
-          }
-      }
+      $(document).ready(function() {
+         $('#subscribeForm').submit(function(event) {
+             event.preventDefault();  // Prevent the default form submission
+     
+             var email = $('#email').val();
+     
+             if (email) {
+                 $.ajax({
+                     type: 'POST',
+                     url: '{% url "index" %}',  // Update this with the actual URL for the subscription endpoint
+                     data: {
+                         'email': email,
+                         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                     },
+                     success: function(response) {
+                         // Handle the success response here
+                         console.log(response);
+                         $('#email').val('');  // Clear the email input after successful subscription
+                         alert('Thank you for subscribing!');
+                     },
+                     error: function(error) {
+                         // Handle the error response here
+                         console.error(error);
+                         alert('An error occurred. Please try again.');
+                     }
+                 });
+             }
+         });
+     });
+     
    </script>
       
 

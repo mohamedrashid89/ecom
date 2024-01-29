@@ -4,9 +4,38 @@
 
 {% block content %}
 
+
+{% include 'web/messages.html' %}
+
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Empty Wishlist</title>
+   <style>
+
+       h1 {
+           color: #333;
+       }
+
+       #wishlist {
+           text-align: center;
+           max-width: 600px;
+           margin: auto;
+           background-color: #fff;
+           padding: 20px;
+           border-radius: 8px;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+       }
+
+       #empty-message {
+           color: #666;
+       }
+   </style>
+</head>
+
    <!-- Add your site or application content here -->
    <main id="wishlist-list">
-
 
       <!-- side toggle start -->
       <div class="fix">
@@ -87,58 +116,96 @@
       <!-- cart area start  -->
       <div class="cart-area pt-100 pb-100">
          <div class="container container-small">
-            <div class="row">
-               <div class="col-12">
-                  <form action="#">
-                     <div class="table-content table-responsive wishdata">
-                        <table class="table">
-                           <thead>
-                              <tr>
-                                 <th class="product-thumbnail">Images</th>
-                                 <th class="cart-product-name">Product</th>
-                                 <th class="product-price">Unit Price</th>
-                                 <th class="product-quantity">Add to cart</th>
-                                 <th class="product-remove">Remove</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              {% for w in w %}
-                              <tr>
-                                 <td class="product-thumbnail"><a href=""><img
-                                          src="{{w.product.image.url}}" alt="img"></a></td>
-                                 <td class="product-name"><a href="{% url 'shop_detail' w.product.slug %}">{{w.product.name}}</a></td>
-                                 <td class="product-price"><span class="amount current-product-price-{{p.id}}">${{w.product.price}}</span></td>
-                                 <td class="product-quantity">
-                                    <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{w.product.id}}">
-                                    <input type="hidden" class="product-id-{{w.product.id}}" value="{{w.product.id}}">
-                                    <input type="hidden" class="product-image-{{w.product.id}}" value="{{w.product.imageURL}}">
-                                    <input type="hidden" class="product-id-{{w.product.id}}" value="{{w.product.id}}">
-                                    <input type="hidden" class="product-name-{{w.product.id}}" value="{{w.product.name}}">
-
-                                    <button class="border-btn add-to-cart-btn" data-index="{{w.product.id}}">Add to Cart</button>
-                                 </td>
-                                 <td class="product-remove" id="wishlist-item-{{ w.id }}">
-                                    <button class="remove-wishlist-item delete-wishlist-product" data-wishlist-product="{{ w.id }}">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </td>
-                                
-                              </tr>
-                              {% empty %}
-                              <tr>
-                                 <td colspan="6" style="text-align:center;"><strong>No items in your wishlist.</strong></td>
-                              </tr>
-                              {% endfor %}
-                           </tbody>
-                        </table>
-                     </div>
-                  </form>
-               </div>
-            </div>
+             <div class="row">
+                 {% if wishlist_items %}
+                 <div class="col-12">
+                     <form action="#">
+                         <div class="table-content table-responsive">
+                             <table class="table">
+                                 <thead>
+                                     <tr>
+                                         <th class="product-thumbnail">Images</th>
+                                         <th class="cart-product-name">Product</th>
+                                         <th class="product-price">Unit Price</th>
+                                         <th class="product-quantity">Add to cart</th>
+                                         <th class="product-remove">Remove</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody>
+                                     {% for item in wishlist_items %}
+                                     <tr>
+                                         <td class="product-thumbnail"><a href=""><img
+                                                     src="{{item.product.image.url}}" alt="img"></a></td>
+                                         <td class="product-name"><a href="{% url 'shop_detail' item.product.slug %}">{{item.product.name}}</a></td>
+                                         <td class="product-price"><span class="">$</span><span
+                                                 class="amount" id="current-product-price-{{ item.id }}">{{item.product.price|floatformat:2}}</span>
+                                         </td>
+                                         <td class="product-quantity">
+                                             <input type="hidden" value="1" name=""
+                                                 class="product-quantity" id="product-quantity-{{ item.id }}">
+                                             <input type="hidden" value="{{ item.id }}" class="product-id-{{ item.id }}"
+                                                 name="" id="">
+                                             <input type="hidden" name="" value="{{ item.name }}"
+                                                 class="product-name-{{ item.id }}" id="product-name">
+                                             <input type="hidden" name="" value="{{ item.imageURL}}"
+                                                 class="product-image-{{ item.id }}">
+                                             <button type="submit" class="border-btn add-to-cart-btn"
+                                                 data-index="{{item.product.id}}" id="add-to-cart-btn">Add to Cart</button>
+                                         </td>
+                                         <td class="product-remove">
+                                             <button class="remove-btn" data-id="{{ item.id }}"><i
+                                                     class="fa fa-remove"></i></button>
+                                         </td>
+                                     </tr>
+                                     {% endfor %}
+                                 </tbody>
+                             </table>
+                         </div>
+                     </form>
+                 </div>
+                 {% else %}
+                 <div class="text-center empty-wishlist-image">
+                  <h2>No item from Wishlist</h2>
+                  {% comment %} <img src="{% static 'assets/img/empty_wishlist.png' %}" alt="Empty Wishlist"> {% endcomment %}
+                 </div>
+                 {% endif %}
+             </div>
          </div>
-      </div>
+     </div>
+     
       <!-- cart area end  -->
 
    </main>
+
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script>
+      $(document).ready(function () {
+         $(".remove-btn").click(function (event) {
+             event.preventDefault();
+             
+             var product_id = $(this).data('id');
+             var url = "/remove-from-wishlist/" + product_id + "/";
+     
+             $.ajax({
+                 type: "GET",
+                 url: url,
+                 success: function (data) {
+                     // Update the wishlist count on the page
+                     console.log("Wishlist count:", data.wishlist_count);
+     
+                     $(".wish-items-count").text(data.wishlist_count);
+     
+                     // Remove the item from the DOM without reloading the page
+                     $(event.target).closest('tr').remove();
+     
+                 },
+                 error: function (error) {
+                     console.log("Error:", error);
+                 }
+             });
+         });
+     });
+     
+  </script>
 
 {% endblock %}

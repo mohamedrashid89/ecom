@@ -6,6 +6,12 @@
 
 
 
+
+   <!-- Include SweetAlert CSS and JS -->
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+
    <!-- Add your site or application content here -->
    <main>
 
@@ -97,37 +103,36 @@
                      </div>
                      {% include 'web/messages.html' %}
                      <div class="contact-main-form">
-                        <form action="" method="post" id="myForm">
-                           {% csrf_token %}
-                           <div class="row">
-                              <div class="col-md-6">
-                                 <div class="single-form-input">
-                                    {{form.name}}
-                                 </div>
-                              </div>
-                              <div class="col-md-6">
-                                 <div class="single-form-input">
-                                    {{form.phone}}
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <div class="single-form-input">
-                                    {{form.email}}
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <div class="single-form-input">
-                                    {{form.message}}
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="contact-btn">
-                              {% comment %} <a href="" class="fill-btn">Submit Now</a> {% endcomment %}
-                              <button type="submit" class="fill-btn submit-now">Submit Now</button>
-                           </div>
-
+                        <form id="contactForm" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-form-input">
+                                        <input name="name" type="text" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-form-input">
+                                        <input name="phone" type="text" placeholder="Phone">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-form-input">
+                                        <input name="email" type="text" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-form-input">
+                                        <textarea name="message" id="message" placeholder="Messages"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-btn">
+                                <button type="button" class="fill-btn" id="submitForm">Submit Now</button>
+                            </div>
                         </form>
-                     </div>
+                    </div>
+                    
                   </div>
                </div>
                <div class="col-lg-4 col-md-6">
@@ -236,29 +241,40 @@
    </main>
 
 
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
    <script>
-      $(document).ready(function() {
-          $('#myForm').submit(function(e) {
-              e.preventDefault(); // Prevent the default form submission
-      
+      $(document).ready(function () {
+          $('#submitForm').click(function () {
+              var formData = $('#contactForm').serialize();
+  
               $.ajax({
                   type: 'POST',
-                  url: '{% url "contact" %}',  // Update this with the actual URL for form submission
-                  data: $('#myForm').serialize(),
-                  success: function(response) {
-                      // Handle the success response here
-                      console.log(response);
-                      // Optionally, you can reset the form after successful submission
-                      $('#myForm')[0].reset();
+                  url: '{% url "contact" %}',  // Replace with the actual URL of your contact view
+                  data: formData,
+                  success: function (data) {
+                      // Handle success response using SweetAlert
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Success',
+                          text: 'Your message has been sent successfully!',
+                      });
+
+                      // Reset the form fields
+                      $('#contactForm')[0].reset();
                   },
-                  error: function(error) {
-                      // Handle the error response here
-                      console.error(error);
+                  error: function (error) {
+                      // Handle error response using SweetAlert
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Error',
+                          text: 'Error sending the message. Please try again later.',
+                      });
                   }
               });
           });
       });
    </script>
+
       
 
   

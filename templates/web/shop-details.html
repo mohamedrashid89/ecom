@@ -124,7 +124,7 @@
                <div class="col-lg-6">
                   <div class="product-side-info mb-30">
                      <h4 class="product-name mb-10">{{p.name}}</h4>
-                     <span class="product-price current-product-price-{{p.id}}">${{p.price}}</span>
+                     <span class="product-price">$</span><span class="product-price " id="current-product-price-{{ p.id }}">{{p.price|floatformat:2}}</span>
 
                      <p class="mb-30">{{p.description}}</p>
                      <div class="available-sizes">
@@ -135,19 +135,18 @@
                         </div>
                      </div>
                      <div class="product-quantity-cart mb-25">
-                        <input type="number" value="1" name="" id="product-quantity" class="w-25 mb-5 p-3 product-quantity-{{p.id}}">
+                           
+                        <input class="w-25 p-1 border-btn product-quantity" type="number" value="1" id="product-quantity-{{ p.id }}">
+   
                         <div>
-                           {% comment %} <input type="hidden" value="{{product.id}}" class="product-id" name="" id=""> 
-                           <input type="hidden" value="{{product.name}}" class="product-name" name="" id="">  {% endcomment %}
-                           {% comment %} <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{p.id}}"> {% endcomment %}
-                           <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                           <input type="hidden" class="product-image-{{p.id}}" value="{{p.imageURL}}">
-                           <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                           <input type="hidden" class="product-name-{{p.id}}" value="{{p.name}}">
-                           <button type="submit" class="fill-btn add-to-cart-btn" data-index="{{p.id}}" id="add-to-cart-btn"><i class="fal fa-shopping-bag mr-10"></i>Add to Cart</button>
-                           <button class="border-btn add-to-wishlist" data-product-item="{{p.id}}">Add to Wishlist</button>
+                           <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}" name="" id="">
+                           <input type="hidden" name="" value="{{ p.name }}" class="product-name-{{ p.id }}" id="product-name">
+                           <input type="hidden" name="" value="{{ p.imageURL}}" class="product-image-{{ p.id }}">
+                           <button type="submit" class="border-btn add-to-cart-btn" data-index="{{ p.id }}" id="add-to-cart-btn">Add to Cart</button>
                         </div>
-                        {% comment %} <a href="cart.html" class="fill-btn">Add to Cart</a> {% endcomment %}
+                        <div>
+                           <button class="add-to-wishlist border-btn add-to-cart-btn" data-product-item="{{p.id}}">Add to Wishlist</button>
+                        </div>
                      </div>
                      
                      <div class="product__details__tag tagcloud mt-25 mb-10"><span>Tags : </span>
@@ -155,9 +154,7 @@
                         {% for tag in tags %}
                            <a href="#" rel="tag">{{ tag.tag_name }}</a>
                         {% endfor %}
-                        {% comment %} <a href="#" rel="tag">Cotton</a>
-                        <a href="#" rel="tag">Smart</a>
-                        <a href="#" rel="tag">Fashion</a> {% endcomment %}
+                        
                      </div>
                   </div>
                </div>
@@ -270,19 +267,7 @@
                      <div class="single-product">
                         <div class="product-image pos-rel">
                            <a href="{% url 'shop_detail' p.slug %}" class=""><img src="{{p.imageURL}}" alt="img"></a>
-                           <div class="product-action">
-                              {% comment %} <a href="#" class="quick-view-btn"><i class="fal fa-eye"></i></a>
-                              <a href="#" class="compare-btn"><i class="fal fa-exchange"></i></a> {% endcomment %}
-                           </div>
-                           <div class="product-action-bottom">
-                              <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{p.id}}">
-                              <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                              <input type="hidden" class="product-image-{{p.id}}" value="{{p.imageURL}}">
-                              <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                              <input type="hidden" class="product-name-{{p.id}}" value="{{p.name}}">
-                              <button class="add-cart-btn add-to-cart-btn" data-index="{{p.id}}" id="add-to-cart-btn"><i class="fal fa-shopping-bag"></i>Add to
-                                 Cart</button>
-                           </div>
+                           
                            <div class="product-sticker-wrapper">
                               <span class="product-sticker" style="background-color: {{p.color.color}}">{{p.color.status}}</span>
                            </div>
@@ -290,7 +275,7 @@
                         <div class="product-desc">
                            <div class="product-name"><a href="{% url 'shop_detail' p.slug %}">{{p.name}}</a></div>
                            <div class="product-price">
-                              <span class="price-now current-product-price-{{p.id}}">${{p.price|floatformat:2}}</span>
+                              <span class="price-now">$</span><span class="price-now current-product-price-{{p.id}}">{{p.price|floatformat:2}}</span>
                            </div>
                            <div class="d-flex justify-content-end">
                               <button class="add-to-wishlist" data-product-item="{{p.id}}"><i class="fal fa-heart fs-5"></i></button>

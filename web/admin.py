@@ -12,7 +12,10 @@ class TagTabularinline(admin.TabularInline):
 
 
 admin.site.register(Images)
-admin.site.register(Tag)
+
+class TagAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("tag_name",)}
+admin.site.register(Tag, TagAdmin)
 class ProductAdmin(admin.ModelAdmin):
     inlines=[ImagesTabularinline,TagTabularinline]
     prepopulated_fields = {"slug": ("name",)}
@@ -43,24 +46,26 @@ class ProductReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(ProductReview, ProductReviewAdmin)
 
-class WishlistAdmin(admin.ModelAdmin):
+class WishlistItemAdmin(admin.ModelAdmin):
     list_display = ['user', 'product', 'date']
 
-admin.site.register(Wishlist_model, WishlistAdmin)
+admin.site.register(WishlistItem, WishlistItemAdmin)
 
 
-# class CartOrderItemsAdmin(admin.ModelAdmin):
-#     list_display = ['order', 'item', 'image', 'qty', 'price']
+class CartOrderItemsAdmin(admin.ModelAdmin):
+    # list_display = ['order', 'item', 'image', 'qty', 'price']
 
-# admin.site.register(CartOrderItems, CartOrderItemsAdmin)
+    admin.site.register(CartOrderItems)
 
 class CartOrderProductsAdmin(admin.ModelAdmin):
-    list_display = ['order', 'invoice_no', 'item', 'image', 'qty', 'item_price']
+    
+    list_display = ['order', 'invoice_no', 'item', 'quantity', 'item_price']
 admin.site.register(CartOrderProducts, CartOrderProductsAdmin)
 
 # class AddressAdmin(admin.ModelAdmin):
 admin.site.register(Address)
 admin.site.register(NewsletterSubscriber)
+admin.site.register(Coupon)
 
 
  

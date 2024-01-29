@@ -70,7 +70,7 @@
                      <div class="breadcrumb-menu">
                         <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
                            <ul class="trail-items">
-                              <li class="trail-item trail-begin"><a href="index.html"><span>Home</span></a></li>
+                              <li class="trail-item trail-begin"><a href="{% url 'index' %}"><span>Home</span></a></li>
                               <li class="trail-item trail-end"><span>Cart</span></li>
                            </ul>
                         </nav>
@@ -87,7 +87,7 @@
          <div class="container container-small">
             <div class="row">
                <div class="col-12">
-                  <div class="table-content table-responsive">
+                  <div class="table-content table-responsive cartdata">
                      <table class="table">
                         <thead>
                            <tr>
@@ -95,7 +95,7 @@
                               <th class="cart-product-name">Product</th>
                               <th class="product-price">Unit Price</th>
                               <th class="product-quantity">Quantity</th>
-                              {% comment %} <th class="product-subtotal">Total</th> {% endcomment %}
+                              <th class="product-subtotal">Total</th>
                               <th class="product-subtotal">Refresh</th>
                               <th class="product-remove">Remove</th>
                            </tr>
@@ -109,20 +109,20 @@
                               
                               <td class="product-name"><a href="">{{item.name}}</a></td>
                             
-                              <td class="product-price"><span class="amount">{{item.price}}</span></td>
+                              <td class="product-price"><span class="amount">${{item.price|floatformat:2}}</span></td>
                               <td class="product-quantity text-center">
                                  <div class="product-quantity mt-10 mb-10">
                                     <div class="product-quantity-form" >
                                        <form class="cart-form quantity">
                                           {% comment %} <button class="cart-minus update-cart"><i class="far fa-minus"></i></button> {% endcomment %}
-                                          <input class="cart-input w-50 product-qty-{{ product_id }}" type="number" value="{{item.qty}}" placeholder="Qty">
+                                          <input class="cart-input w-50 product-quantity-{{ product_id }}" type="number" value="{{item.quantity}}" placeholder="Qty">
                                           {% comment %} <button class="cart-plus update-cart"><i class="far fa-plus"></i></button> {% endcomment %}
                                        </form>
                                     </div>
                                  </div>
                               </td>
-                              {% comment %} <td class="product-subtotal"><span class="amount">${% widthratio item.price 1 item.qty %} </span></td> {% endcomment %}
-                              <td class="product-refresh" data-title="Refresh"><button class="refresh-cart update-product" data-product="{{ product_id }}"><i class="fa fa-refresh"></i></button></td>
+                              <td class="product-subtotal"><span class="amount">${% widthratio item.price 1 item.quantity %}</span></td>
+                              <td class="product-refresh" data-title="Refresh"><button type="submit" class="refresh-cart update-product" data-product="{{ product_id }}"><i class="fa fa-refresh"></i></button></td>
                               <td class="product-remove" data-title="Remove"><button type="submit" class="remove-cart delete-product" data-product="{{ product_id }}"><i class="fa fa-remove"></i></button></td>
                            </tr>
                            {% endfor %}
@@ -150,7 +150,7 @@
                         <div class="cart-page-total">
                            <h2>Cart totals</h2>
                            <ul class="mb-20">
-                              <li>SubTotal <span>${{ cart_total_amount|floatformat:2}}</span></li>
+                              <li>SubTotal <span>${{ cart_total_amount|floatformat:2 }}</span></li>
                               <li>Shipping  <span>Free</span></li>
                               <li>Total <span>${{ cart_total_amount|floatformat:2 }}</span></li>
                            </ul>

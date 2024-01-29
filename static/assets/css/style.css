@@ -543,16 +543,15 @@ p {
   display: inline-block;
   line-height: 58px;
   border-radius: 5px;
-  padding: 0 35px;
+  padding: 0 52px;
   position: relative;
   overflow: hidden;
   text-align: center;
 }
 .fill-btn:hover {
-  color: var(--clr-common-white);
-  background: var(--clr-common-black);
+  color: var(--clr-common-heading);
+  background: var(--clr-common-white);
 }
-
 
 .border-btn {
   font-size: 16px;
@@ -674,11 +673,11 @@ p {
 }
 
 .nice-select {
-  font-size: 24px;
+  font-size: 16px;
   color: #171717;
   border: none;
   padding-left: 0;
-  padding-right: 24px;
+  padding-right: 15px;
 }
 .nice-select:after {
   right: 12px;
@@ -1800,7 +1799,7 @@ div.mean-container a.meanmenu-reveal {
 }
 
 .product-sticker.new {
-  /* background: #62c48f; */
+  background: #62c48f;
 }
 
 .product-sticker.discount {
@@ -1842,7 +1841,6 @@ div.mean-container a.meanmenu-reveal {
 }
 
 .add-cart-btn {
-  cursor: pointer;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -4618,6 +4616,7 @@ input.radio-box[type=radio]:checked::before {
 }
 
 .comment-textarea {
+  height: 170px;
   width: 100%;
   background: #f8f8f9;
   border: none;
@@ -4752,11 +4751,9 @@ input.radio-box[type=radio]:checked::before {
 }
 .cart-area .product-quantity-form {
   margin: auto;
-  width: 100px;
+  width: 122px;
   height: 58px;
-  border-radius: 10px;
   border: 1px solid var(--clr-common-border);
-  outline: none;
   text-align: center;
   position: relative;
   -webkit-transition: all 0.3s ease-out 0s;
@@ -4799,7 +4796,7 @@ input.radio-box[type=radio]:checked::before {
   height: 58px;
   width: 32px;
   text-align: center;
-  /* font-size: 14px; */
+  font-size: 14px;
   border: none;
   display: inline-block;
   vertical-align: middle;
@@ -4938,7 +4935,6 @@ p.checkout-coupon input[type=submit]:hover {
   text-transform: uppercase;
   transition: all 0.3s ease 0s;
 }
-
 
 p.lost-password {
   margin-top: 15px;
@@ -5114,9 +5110,7 @@ p.checkout-coupon input[type=text]:focus {
   padding: 30px 40px 45px;
   border: 2px solid var(--clr-common-border);
 }
-.product-image-1 img{
-  width: 50px;
-}
+
 @media (max-width: 767px) {
   .your-order {
     padding: 15px;
@@ -5159,7 +5153,7 @@ p.checkout-coupon input[type=text]:focus {
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
-  /* width: 250px; */
+  width: 250px;
 }
 
 .panel-body > p {
@@ -5404,7 +5398,7 @@ p.checkout-coupon input[type=text]:focus {
 .ui-button,
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
-  background: #fff;
+  background: #000000;
   border-radius: 50%;
   border: none;
   outline: none;
@@ -6242,8 +6236,6 @@ html .ui-button.ui-state-disabled:active {
   }
 }
 
-
-
 .apps-download-text {
   text-align: right;
 }
@@ -6428,4 +6420,4 @@ html .ui-button.ui-state-disabled:active {
   }
 }
 
-/* Price Rang */
+/*# sourceMappingURL=style.css.map */

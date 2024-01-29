@@ -50,57 +50,58 @@ $("#commentForm").submit(function (e) {
 })
 
 
-// Price Range
+// Add to Cart
 $(document).ready(function () {
 
-    $(".add-to-cart-btn").on('click', function () {
-        let this_val = $(this);
-        let index = this_val.attr("data-index");
+    $(".add-to-cart-btn").on("click", function () {
 
-        let quantity = $(".product-quantity-" + index).val();
-        let product_name = $(".product-name-" + index).val();
+        let this_val = $(this)
+        let index = this_val.attr("data-index")
 
-        let product_id = $(".product-id-" + index).val();
-        let product_price = $(".current-product-price-" + index).text();
+        let quantity = $("#product-quantity-" + index).val()
+        let product_name = $(".product-name-" + index).val()
+        let product_id = $(".product-id-" + index).val()
+        let product_price = $("#current-product-price-" + index).text()
+        let product_image = $(".product-image-" + index).val()
 
-        let product_image = $(".product-image-" + index).val(); // Add .val() here
 
-        console.log("Quantity:", quantity);
+        console.log("Product Quantity:", quantity);
         console.log("Product Name:", product_name);
         console.log("Product ID:", product_id);
         console.log("Product Price:", product_price);
         console.log("Product Image:", product_image);
-        console.log("index:", index);
+        console.log("Index:", index);
         console.log("Current Element:", this_val);
+
 
         $.ajax({
             url: '/add-to-cart',
             data: {
                 'id': product_id,
-                'image': product_image,
-                'qty': quantity,
+                'quantity': quantity,
                 'name': product_name,
                 'price': product_price,
+                'image': product_image,
             },
             dataType: 'json',
             beforeSend: function () {
-                console.log("Adding Product to Cart...");
+                console.log("Adding Product to Cart.");
             },
             success: function (response) {
-                this_val.html("✔")
+                this_val.html("Item added to cart")
                 console.log("Added Product to Cart!");
                 $(".cart-items-count").text(response.totalcartitems)
             }
-        });
-    });
+        })
+    })
 
     // Delete Items
-    $(".delete-product").on("click", function () {
+    $(".delete-product").on("click", function (event) {
         let product_id = $(this).attr("data-product");
         let this_val = $(this);
 
         console.log("Product ID:", product_id);
-        
+
 
         $.ajax({
             url: "/delete-from-cart/",
@@ -109,12 +110,17 @@ $(document).ready(function () {
             },
             dataType: "json",
             beforeSend: function () {
-                this_val.hide()
+                console.log("Deleting Item...");
+                // this_val.hide()
             },
             success: function (response) {
-                this_val.show()
+                // this_val.show()
                 $(".cart-items-count").text(response.totalcartitems);
                 $("#cart-list").html(response.data);
+                $(".cartdata").load(location.href + ".cartdata");
+
+                // Remove the item from the DOM without reloading the page
+                $(event.target).closest('tr').remove();
             },
 
         });
@@ -126,7 +132,7 @@ $(document).ready(function () {
 $(document).on("click", ".update-product", function () {
     let product_id = $(this).attr("data-product");
     let this_val = $(this);
-    let product_quantity = $(".product-qty-" + product_id).val()
+    let product_quantity = $(".product-quantity-" + product_id).val()
 
     console.log("Product ID:", product_id);
     console.log("Product Qty:", product_quantity);
@@ -135,14 +141,17 @@ $(document).on("click", ".update-product", function () {
         url: "/update-cart",
         data: {
             "id": product_id,
-            "qty": product_quantity,
+            "quantity": product_quantity,
         },
         dataType: "json",
         beforeSend: function () {
-            this_val.hide()
+            this_val.addClass('disabled');
+
+            // this_val.hide()
         },
         success: function (response) {
-            this_val.show()
+
+            // this_val.show()
             $(".cart-items-count").text(response.totalcartitems);
             $("#cart-list").html(response.data);
         },
@@ -164,11 +173,11 @@ $(document).on("click", ".add-to-wishlist", function () {
             'id': product_id
         },
         dataType: 'json',
-        beforeSend: function() {
+        beforeSend: function () {
             this_val.html("✔");
             console.log("Added to Wishlist.");
         },
-        success: function(response) {
+        success: function (response) {
             if (response.bool === true) {
                 console.log("Added to Wishlist.");
 
@@ -179,131 +188,3 @@ $(document).on("click", ".add-to-wishlist", function () {
     });
 });
 
-
-// Remove from Wishlist
-$(document).on('click', '.delete-wishlist-product', function(){
-    let wishlist_id = $(this).attr("data-wishlist-product");
-    let this_val = $(this);
-
-    console.log("Wishlist is :", wishlist_id);
-
-    $.ajax({
-        url: "/remove-from-wishlist/",
-        data: {
-            "id": wishlist_id,
-        },
-        dataType: "json",
-        type: "GET",
-        beforeSend: function() {
-            console.log("Deleting product from wishlist.");
-        },
-        success: function(response){
-            if (response.data) {
-                $("#wishlist-list").html(response.data);
-                // Update wishlist count
-                $(".wish-items-count").text(response.wishlist_count);
-                
-            } else {
-                console.log(response.w);
-            }
-        },
-        error: function(error){
-            console.log("Error deleting product from wishlist:", error);
-        }
-    });
-});
-
-$(document).ready(function () {
-    $("#max_price").on("blur", function () {
-        let min_price = $(this).attr("min");
-        let max_price = $(this).attr("max");
-        let current_price = $(this).val();
-
-        // console.log("value is:", current_price);
-        // console.log("Max Price is:", max_price);
-        // console.log("Min Price is:", min_price);
-
-        if (current_price < parseInt(min_price) || current_price > parseInt(max_price)) {
-            // console.log("Price Error Occured");
-
-            min_price = Math.round(min_price * 100) / 100
-            max_price = Math.round(max_price * 100) / 100
-
-
-            // console.log("Max Price is:", min_price);
-            // console.log("Min Price is:", max_price);
-
-            alert("Price must between " + min_price + ' and ' + max_price)
-            $(this).val('min_price');
-            $('#range').val(min_price)
-            $(this).focus()
-
-            return false
-        }
-    });
-});
-
-
-$(document).ready(function () {
-    $('#price-filter-btn').on('click', function () {
-        var minPrice = $('#range').val();
-        var maxPrice = $('#max_price').val();
-
-        $.ajax({
-            type: 'GET',
-            url: '/shop',  // Update the URL to match your view's URL
-            data: {
-                min_price: minPrice,
-                max_price: maxPrice,
-            },
-            success: function (data) {
-                // Update the product list with the filtered data
-                $('#product-list-container').html(data);
-            }
-        });
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-// Add to Cart Functionality
-// $(".add-to-cart-btn").on('click', function (){
-//     let quantity = $("#product-quantity").val()
-//     let product_name = $(".product-name").val()
-//     let product_id = $(".product-id").val()
-//     let product_price = $(".current-product-price").text()
-//     let this_val = $(this)
-
-//     console.log("Quantity:", quantity);
-//     console.log("Product Name:", product_name);
-//     console.log("Product ID:", product_id);
-//     console.log("Product Price:", product_price);
-//     console.log("Current Element:", this_val);
-
-//     $.ajax({
-//         url:'/add-to-cart',
-//         data: {
-//             'id' : product_id,
-//             'qty': quantity,
-//             'name': product_name,
-//             'price': product_price,
-//         },
-//         dataType: 'json',
-//         beforeSend: function(){
-//             console.log("Adding Product to Cart...");
-//         },
-//         success:function(response){
-//             this_val.html("Item added to cart")
-//             console.log("Added Product to Cart!");
-//             $(".cart-items-count").text(response.totalcartitems)
-//         }
-//     })
-// })

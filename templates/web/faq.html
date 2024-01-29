@@ -3,11 +3,14 @@
 {% load static %}
 
 {% block content %}
+   
+
+   <!-- Include SweetAlert CSS and JS -->
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
    <!-- Add your site or application content here -->
    <main>
-
-
       <!-- side toggle start -->
       <div class="fix">
          <div class="side-info">
@@ -315,8 +318,7 @@
             <div class="row justify-content-center">
                <div class="col-lg-8">
                   <div class="contact-form">
-
-                     <form action="" id="myForm" method="post">
+                     <form id="FaForm" method="post">
                         {% csrf_token %}
                         <div class="row">
                            <div class="col-xxl-6 col-xl-6 col-md-6">
@@ -345,7 +347,7 @@
                               </div>
                            </div>
                            <div class="col-xxl-12 col-xl-12">
-                              <button type="submit" class="fill-btn">Send message</button>
+                              <button type="button" class="fill-btn" id="submitForm">Send message</button>
                            </div>
                         </div>
                      </form>
@@ -359,4 +361,37 @@
 
    </main>
 
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script>
+      $(document).ready(function () {
+          $('#submitForm').click(function () {
+              var formData = $('#FaForm').serialize();
+  
+              $.ajax({
+                  type: 'POST',
+                  url: '{% url "faq" %}',  // Replace with the actual URL of your contact view
+                  data: formData,
+                  success: function (data) {
+                      // Handle success response using SweetAlert
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Success',
+                          text: 'Your message has been sent successfully!',
+                      });
+
+                      // Reset the form fields
+                      $('#FaForm')[0].reset();
+                  },
+                  error: function (error) {
+                      // Handle error response using SweetAlert
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Error',
+                          text: 'Error sending the message. Please try again later.',
+                      });
+                  }
+              });
+          });
+      });
+   </script>
  {% endblock %}

@@ -12,7 +12,7 @@
           <div class="row align-items-center">
              <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="header-top-link">
-                   <a href="about.html" class="text-btn">About Us</a>
+                   <a href="{% url 'about' %}" class="text-btn">About Us</a>
                    <a href="{% url 'register' %}" class="text-btn">My account</a>
                 </div>
              </div>
@@ -63,7 +63,6 @@
                                      <li><a href="{% url 'about' %}">About</a></li>
                                      <li><a href="{% url 'register' %}">Register</a></li>
                                        {% if user.is_authenticated %}
-                                       
                                        <li><a href="{% url 'logout' %}">Logout</a></li>
                                        {% else %}
                                        <li><a href="{% url 'log' %}">Login</a></li>

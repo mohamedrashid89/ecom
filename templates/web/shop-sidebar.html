@@ -6,46 +6,86 @@
 
 <head>
    <style>
-      input[type=range]{
-         -webkit-appearance: none;
-         margin-right: 15px;
-         height: 7px;
+      .price-input {
          width: 100%;
-         background: #000000;
-         border-radius: 5px;
-         background-image: linear-gradient(#000000, #000000);
-         background-size: 100% 100%;
-         background-repeat: no-repeat;
-      }
-      input[type=range]::-webkit-silder-thumb {
-         -webkit-appearance: none;
-         width : 20px;
-         height : 20px;
-         border-radius: 50%;
-         background: #000000;
-         box-shadow: -306px -306px 0 white;
-         cursor: w-resize;
-         transition: 3s ease-in-out;
-      }
-      input[type=range]:focus::-webkit-slider-runnable-track {
-         -webkit-appearance: none;
-         box-shadow: none;
-         border: none;
-         background: transparent;
-      }
-      .input-group{
          display: flex;
-         justify-content: center;
-         align-items: center;
+         margin: 30px 0 35px;
+       }
+       .price-input .field {
+         display: flex;
          width: 100%;
-         border: 2px solid #1111;
-         margin-top: 10px;
+         height: 45px;
+         align-items: center;
+       }
+       .field input {
+         width: 100%;
+         height: 100%;
          outline: none;
+         font-size: 19px;
+         margin-left: 12px;
          border-radius: 5px;
-         padding: 10px;
-         padding-left: 20px;
-      }
- 
+         text-align: center;
+         border: 1px solid #999;
+         -moz-appearance: textfield;
+       }
+       input[type="number"]::-webkit-outer-spin-button,
+       input[type="number"]::-webkit-inner-spin-button {
+         -webkit-appearance: none;
+       }
+       .price-input .separator {
+         width: 130px;
+         display: flex;
+         font-size: 19px;
+         align-items: center;
+         justify-content: center;
+       }
+       .slider {
+         height: 5px;
+         position: relative;
+         background: #ddd;
+         border-radius: 5px;
+       }
+       .slider .progress {
+         height: 100%;
+         left: 0%;
+         right: 0%;
+         position: absolute;
+         border-radius: 5px;
+         background: #1258;
+       }
+       .range-input {
+         position: relative;
+       }
+       .range-input input {
+         position: absolute;
+         width: 100%;
+         height: 5px;
+         top: -5px;
+         background: none;
+         pointer-events: none;
+         -webkit-appearance: none;
+         -moz-appearance: none;
+       }
+       input[type="range"]::-webkit-slider-thumb {
+         height: 17px;
+         width: 17px;
+         border-radius: 50%;
+         background: #111;
+         pointer-events: auto;
+         -webkit-appearance: none;
+         box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+       }
+       input[type="range"]::-moz-range-thumb {
+         height: 17px;
+         width: 17px;
+         border: none;
+         border-radius: 50%;
+         background: #111;
+         pointer-events: auto;
+         -moz-appearance: none;
+         box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+       }
+       
    </style>
 </head>
 
@@ -350,21 +390,12 @@
       <!-- shop main area start  -->
       <div class="shop-main-area pt-120 pb-10">
          <div class="container">
-            <div class="row">
+            <div class="row" >
 
                <div class="col-xl-3 col-lg-4 col-md-6">
                   <div class="sidebar-widget-wrapper mb-110 d-none d-lg-block">
                      <div class="product-filters mb-50">
-                        <div class="filter-widget">
-                           <h4 class="filter-widget-title drop-btn">Search</h4>
-                           <div class="filter-widget-content">
-                              <div class="filter-widget-search">
-                                 <input type="text" placeholder="Search here..">
-                                 <button type="submit"><i class="fal fa-search"></i></button>
-                              </div>
-
-                           </div>
-                        </div>
+                        
                         <div class="filter-widget">
                            <h4 class="filter-widget-title drop-btn">Category</h4>
                            <div class="filter-widget-content">
@@ -382,41 +413,40 @@
                            </div>
                         </div>
                         <div class="filter-widget">
-                           <h4 class="filter-widget-title drop-btn">Price Range</h4>
-                           <div class="price-range">
-                                 <input type="range" name="range" value="{{min_max_price.price__min|floatformat:2}}" class="silder-range" id="range" min="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" oninput="max_price.value=this.value"/>
-                              
-                              <div class="d-flex justify-content-between">
-                                 <strong class="">From: ${{min_max_price.price__min|floatformat:2}}</strong>
-                                 <strong class="">To: ${{min_max_price.price__max|floatformat:2}}</strong>
+                           <h4 class="filter-widget-title drop-btn">Price</h4>
+                           <div class="filter-widget-content">
+                              <div class="filter-price">
+                                  <div class="slider mt-10">
+                                      <div class="progress"></div>
+                                  </div>
+                                  
+                                  <div class="range-input" id="price-range">
+                                    <input type="range" class="multi-range" value="{{FilterPrice}}" min="{{min_price.price__min}}" max="{{max_price.price__max}}" id="rangeInput" oninput="maxPrice.value=this.value" width="400px;"/>
+                                  </div>
+                                  <div class="price-input">
+                                      <form action="" method="get">
+                                       <b>$</b><input type="number" id="maxPrice" readonly="" name="FilterPrice" onkeyup="rangeInput.value=this.value" value={{FilterPrice}}{{minMaxPrice.price__min}}>
+                                       <button type="submit" id="priceFilterBtn" class="border-btn">Filter</button>
+                                      </form>
+                                  </div>
+      
                               </div>
-                              <input type="number" name="" value="{{min_max_price.price__min|floatformat:2}}" id="max_price" class="input-group" min="{{min_max_price.price__min}}" max="{{min_max_price.price__max}}" placeholder="Current Price" onkeyup="range.value=this.value">
-
                            </div>
-                           <button class="btn mt-10 w-100 btn-success" type="button" id="price-filter-btn">Filter By Price</button>
-
-                           {% comment %} <h3>{{min_max_price}}</h3> {% endcomment %}
                         </div>
                         <div class="filter-widget">
                            <h4 class="filter-widget-title drop-btn">Tags</h4>
                            <div class="filter-widget-content">
                               <div class="category-tags">
-                                 <a href="#" class="category-tag">Fashion</a>
-                                 <a href="#" class="category-tag">Hats</a>
-                                 <a href="#" class="category-tag">Sandal</a>
-                                 <a href="#" class="category-tag">Bags</a>
-                                 <a href="#" class="category-tag">Snacker</a>
-                                 <a href="#" class="category-tag">Denim</a>
-                                 <a href="#" class="category-tag">Sunglasses</a>
-                                 <a href="#" class="category-tag">Beachwear</a>
-                                 <a href="#" class="category-tag">Vagabond</a>
-                                 <a href="#" class="category-tag">Trend</a>
+                                 {% for tag in tags %}
+                                 <a href="/shop/?tags={{tag.slug}}" class="category-tag">{{tag.tag_name}}</a>
+                                 {% endfor %}
                               </div>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
+
 
                <div class="col-xl-9 col-lg-8 col-md-12">
                   <div class="shop-main-wrapper mb-60">
@@ -446,20 +476,7 @@
                         <div class="single-product">
                            <div class="product-image pos-rel">
                               <a href="{% url 'shop_detail' p.slug %}" class=""><img src="{{p.imageURL}}" alt="img"></a>
-                              <div class="product-action">
-                                 {% comment %} <a href="#" class="quick-view-btn"><i class="fal fa-eye"></i></a>
-                                 
-                                 <a href="#" class="compare-btn"><i class="fal fa-exchange"></i></a> {% endcomment %}
-                              </div>
-                              <div class="product-action-bottom">
-                                 <input type="hidden" value="1" name="" id="product-quantity" class="product-quantity-{{p.id}}">
-                                 <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                                 <input type="hidden" class="product-image-{{p.id}}" value="{{p.imageURL}}">
-                                 <input type="hidden" class="product-id-{{p.id}}" value="{{p.id}}">
-                                 <input type="hidden" class="product-name-{{p.id}}" value="{{p.name}}">
-
-                                 <button class="add-cart-btn add-to-cart-btn" data-index="{{p.id}}" id="add-to-cart-btn"><i class="fal fa-shopping-bag"></i>Add to Cart</button>
-                              </div>
+                              
                               <div class="product-sticker-wrapper">
                                  <span class="product-sticker" style="background-color: {{p.color.color}}">{{p.color.status}}</span>
                               </div>
@@ -467,7 +484,7 @@
                            <div class="product-desc">
                               <div class="product-name"><a href="{% url 'shop_detail' p.slug %}">{{p.name}}</a></div>
                               <div class="product-price">
-                                 <span class="price-now current-product-price-{{p.id}}">${{p.price|floatformat:2}}</span>
+                                 <span class="price-now"></span><span class="price-now current-product-price-{{ p.id }}">{{p.price|floatformat:2}}</span>
                               </div>
                               <div class="d-flex justify-content-end">
                                  <button class="add-to-wishlist" data-product-item="{{p.id}}"><i class="fal fa-heart fs-5"></i></button>
@@ -502,5 +519,10 @@
       <!-- shop main area end  -->
 
    </main>
+
+
+   
+   
+
 
   {% endblock %}

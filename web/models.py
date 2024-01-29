@@ -66,6 +66,7 @@ class Images(models.Model):
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=80)
+    slug = models.SlugField(max_length=150, unique=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     # post = models.ForeignKey(BlogPost, on_delete=models.SET_NULL, null=True)
 
@@ -107,55 +108,8 @@ class FaqForm(models.Model):
     def __str__(self):
         return self.name
     
-
-class CartOrder(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    price = models.FloatField(max_length=99999999999, default="1.99")
-    order_date = models.DateTimeField(auto_now_add=True)
-    product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
-
-
-class CartOrderProducts(models.Model):
-    order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
-    invoice_no = models.CharField(max_length=200)
-    product_status = models.CharField(max_length=200)
-    item = models.CharField(max_length=200)
-    image = models.CharField(max_length=200)
-    qty = models.IntegerField(default=0)
-    item_price = models.FloatField(max_length=99999999999, default="1.99")
-    total = models.FloatField(max_length=99999999999, default="1.99")
-    
-    
-# class CartOrderItems(models.Model):
-#     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
-#     item = models.CharField(max_length=200)
-#     image = models.CharField(max_length=200)
-#     qty = models.IntegerField(default=0)
-#     price = models.FloatField(max_length=99999999999, default="1.99")
-
-
-class ProductReview(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey('Product', related_name='reviews', on_delete=models.SET_NULL, null=True)
-    review = models.TextField()
-    rating = models.IntegerField(choices=RATING, default=None)
-    date = models.DateTimeField(auto_now_add=True)
-
-    
-    def get_rating(self):
-        return self.rating
-    
-
-class Wishlist_model(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
-    date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.product.name
-    
-    
 class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     company_name = models.CharField(max_length=255, blank=True, null=True)
@@ -171,6 +125,63 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.email}"
     
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    
+    # discount = models.PositiveSmallIntegerField()  # Percentage off
+    
+    def __str__(self):
+        return self.code
+    
+
+class CartOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    price = models.FloatField(max_length=99999999999, default="1.99")
+    order_date = models.DateTimeField(auto_now_add=True)
+    product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, blank=True, null=True)
+
+
+class CartOrderProducts(models.Model):
+    order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
+    invoice_no = models.CharField(max_length=200)
+    product_status = models.CharField(max_length=200)
+    item = models.CharField(max_length=200)
+    image = models.CharField(max_length=200)
+    quantity = models.IntegerField(default=0)
+    item_price = models.FloatField(max_length=99999999999, default="1.99")
+    total = models.FloatField(max_length=99999999999, default="1.99")
+    
+    
+class CartOrderItems(models.Model):
+    order = models.ForeignKey(Address, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    item = models.CharField(max_length=200)
+    image = models.CharField(max_length=200)
+    quantity = models.IntegerField(default=0)
+    price = models.FloatField(max_length=99999999999, default="1.99")
+
+
+class ProductReview(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey('Product', related_name='reviews', on_delete=models.SET_NULL, null=True)
+    review = models.TextField()
+    rating = models.IntegerField(choices=RATING, default=None)
+    date = models.DateTimeField(auto_now_add=True)
+
+    
+    def get_rating(self):
+        return self.rating
+    
+
+class WishlistItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.product.name
+       
     
 class NewsletterSubscriber(models.Model):
     email = models.EmailField(unique=True)
@@ -178,3 +189,4 @@ class NewsletterSubscriber(models.Model):
 
     def __str__(self):
         return self.email
+    

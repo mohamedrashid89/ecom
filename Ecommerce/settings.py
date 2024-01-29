@@ -25,15 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$u%3wcu%0838bohgy=uidua-+xf3=r+3o3q*d-26wph%sm0()&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     "admin_interface",
+    'crispy_forms',
     "colorfield",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
+    'django_countries',
     
     #Paypal Integration
     'paypal.standard.ipn', 
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'Ecommerce.urls'
@@ -134,6 +136,21 @@ STATIC_ROOT = BASE_DIR/'assets'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+if DEBUG:
+
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+else:
+
+    STATIC_ROOT = os.path.join(BASE_DIR/'assets')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -154,6 +171,5 @@ MESSAGE_TAGS = {
 PAYPAL_RECEIVER_EMAIL = 'sb-ndq0z27026703@business.example.com'
 PAYPAL_TEST = True
 
-# Stripe
-STRIPE_PUBLISHABLE_KEY='pk_test_51O7fuDSB58g4bnsDRft6AyQF7qSUDlGUhetCl6L0aGECbKIuwmeNR6idt2ZAQ8WfsouDp62pFspemTtnypW0u3l8004GAye8a8'
-STRIPE_SECRET_KEY='sk_test_51O7fuDSB58g4bnsDCbKdjwkuYY7oYwCRxlJfNfpSdr1IEIge056pExbSCPZlgdv8fYQy2YUP3888SYsT9Va99CcG00pBfoqc5P'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

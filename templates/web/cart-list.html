@@ -81,7 +81,7 @@
                               <th class="cart-product-name">Product</th>
                               <th class="product-price">Unit Price</th>
                               <th class="product-quantity">Quantity</th>
-                              {% comment %} <th class="product-subtotal">Total</th> {% endcomment %}
+                              <th class="product-subtotal">Total</th>
                               <th class="product-subtotal">Refresh</th>
                               <th class="product-remove">Remove</th>
                            </tr>
@@ -101,14 +101,14 @@
                                     <div class="product-quantity-form" >
                                        <form class="cart-form quantity">
                                           {% comment %} <button class="cart-minus update-cart"><i class="far fa-minus"></i></button> {% endcomment %}
-                                          <input class="cart-input w-50" type="number" value="{{item.qty}}" placeholder="Qty">
+                                          <input class="cart-input w-50 product-quantity-{{ product_id }}" type="number" value="{{item.quantity}}" placeholder="Qty">
                                           {% comment %} <button class="cart-plus update-cart"><i class="far fa-plus"></i></button> {% endcomment %}
                                        </form>
                                     </div>
                                  </div>
                               </td>
-                              
-                              <td class="product-refresh" data-title="Refresh"><button class="refresh-cart update-product" data-product="{{ product_id }}"><i class="fa fa-refresh"></i></button></td>
+                              <td class="product-subtotal"><span class="amount">${% widthratio item.price 1 item.quantity %} </span></td>
+                              <td class="product-refresh" data-title="Refresh"><button type="submit" class="refresh-cart update-product" data-product="{{ product_id }}"><i class="fa fa-refresh"></i></button></td>
                               <td class="product-remove" data-title="Remove"><button type="submit" class="remove-cart delete-product" data-product="{{ product_id }}"><i class="fa fa-remove"></i></button></td>
                            </tr>
                            {% endfor %}

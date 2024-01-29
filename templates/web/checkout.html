@@ -151,85 +151,79 @@
       <!-- checkout-area start -->
       <section class="checkout-area pb-70">
          <div class="container container-small">
-            <form action="https://www.sandbox.paypal.com" method="post">
+            <form action="" method="post">
                {% csrf_token %}
                <div class="row">
                   <div class="col-lg-6" id="shipping-info">
                      <div class="checkbox-form">
+                        
+
                         <h3>Billing Details</h3>
                         <div class="row">
-                           <div class="col-md-12">
-                              <div class="country-select">
-                                 <label>Country <span class="required">*</span></label>
-                                 <select name="country">
-                                    <option value="volvo">bangladesh</option>
-                                    <option value="saab">Algeria</option>
-                                    <option value="mercedes">Afghanistan</option>
-                                    <option value="audi">Ghana</option>
-                                    <option value="audi2">Albania</option>
-                                    <option value="audi3">Bahrain</option>
-                                    <option value="audi4">Colombia</option>
-                                    <option value="audi5">Dominican Republic</option>
-                                 </select>
+                           <div class="col-md-6">
+                              <div class="checkout-form-list">
+                                 <label>Country<span class="required">*</span></label>
+                                 {{ form.country }}
                               </div>
                            </div>
+                           
                            <div class="col-md-6">
                               <div class="checkout-form-list">
                                  <label>First Name <span class="required">*</span></label>
-                                 <input type="text" placeholder="" name="firstname"/>
+                                 {{form.first_name}}
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="checkout-form-list">
                                  <label>Last Name <span class="required">*</span></label>
-                                 <input type="text" placeholder="" name="lastname"/>
+                                 {{form.last_name}}
                               </div>
                            </div>
                            <div class="col-md-12">
                               <div class="checkout-form-list">
                                  <label>Company Name</label>
-                                 <input type="text" placeholder="" name="companyname"/>
+                                 {{form.company_name}}
                               </div>
                            </div>
                            <div class="col-md-12">
                               <div class="checkout-form-list">
                                  <label>Address <span class="required">*</span></label>
-                                 <input type="text" placeholder="Street address" name="address"/>
+                                 {{form.address}}
                               </div>
                            </div>
                            <div class="col-md-12">
                               <div class="checkout-form-list">
-                                 <input type="text" placeholder="Apartment, suite, unit etc. (optional)" name="apartment"/>
+                                 {{form.apartment}}
                               </div>
                            </div>
                            <div class="col-md-12">
                               <div class="checkout-form-list">
                                  <label>Town / City <span class="required">*</span></label>
-                                 <input type="text" placeholder="Town / City" name="city"/>
+                                 {{form.town_city}}
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="checkout-form-list">
                                  <label>State / County <span class="required">*</span></label>
-                                 <input type="text" placeholder="" name="state"/>
+                                 {{form.state}}
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="checkout-form-list">
                                  <label>Postcode / Zip <span class="required">*</span></label>
-                                 <input type="text" placeholder="Postcode / Zip" name="postcode"/>
+                                 {{form.zipcode}}
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="checkout-form-list">
                                  <label>Email Address <span class="required">*</span></label>
-                                 <input type="email" placeholder="" name="email"/>
+                                 {{form.email}}
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="checkout-form-list">
                                  <label>Phone <span class="required">*</span></label>
-                                 <input type="text" placeholder="Phone Number" name="phone"/>
+                                 {{form.phone}}
                               </div>
                            </div>
                            <div class="col-md-12">
@@ -245,6 +239,8 @@
                                  <input type="password" placeholder="password" />
                               </div>
                            </div>
+
+                           <button class="btn-primary">Submit</button>
                         </div>
                         <div class="different-address">
                            <div class="ship-different-title">
@@ -359,10 +355,10 @@
                                        alt="Product">
                                     </td>
                                     <td class="product-name">
-                                       {{item.name}} <strong class="product-quantity"> × {{item.qty}}</strong>
+                                       {{item.name}} <strong class="product-quantity"> × {{item.quantity}}</strong>
                                     </td>
                                     <td class="product-total">
-                                       <span class="amount">{{item.price}}</span>
+                                       <span class="amount">${% widthratio item.price 1 item.quantity %}</span>
                                     </td>
                                  </tr>
                                  {% endfor %}
@@ -456,7 +452,8 @@
                               </div>
                            </div>
                            <div class="mt-20">
-                              <button type="submit" class="fill-btn">Place order</button>
+                              {{paypal_payment_button.render}}
+                              {% comment %} <button type="submit" class="fill-btn">Place order</button> {% endcomment %}
                            </div>
                         </div>
                         
